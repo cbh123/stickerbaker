@@ -63,6 +63,35 @@ let liveSocket = new LiveSocket("/live", Socket, {
   hooks: Hooks,
 });
 
+window.addEventListener("phx:copy", async (event) => {
+  let button = event.detail.dispatcher;
+  // Assuming you want to share the URL stored in a data attribute named 'data-url'
+  let urlToShare =
+    event.target.getAttribute("data-url") || event.target.dataset.url;
+
+  // Check if the Web Share API is available
+  if (navigator.share) {
+    try {
+      await navigator.share({
+        title: "Check out my AI generated sticker", // Optional: Title of the content to share
+        url: urlToShare, // The URL you want to share
+      });
+      console.log("Content shared successfully");
+    } catch (error) {
+      console.error("Error sharing content:", error);
+    }
+  } else {
+    // Fallback for browsers that do not support the Web Share API
+    // For example, copy the URL to clipboard
+    navigator.clipboard.writeText(text).then(() => {
+      button.innerText = "Link copied to clipboard!";
+      setTimeout(() => {
+        button.innerText = "Share link";
+      }, 2000);
+    });
+  }
+});
+
 // Show progress bar on live navigation and form submits
 topbar.config({ barColors: { 0: "#29d" }, shadowColor: "rgba(0, 0, 0, .3)" });
 window.addEventListener("phx:page-loading-start", (_info) => topbar.show(300));

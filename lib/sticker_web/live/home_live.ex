@@ -4,14 +4,21 @@ defmodule StickerWeb.HomeLive do
 
   @fail_image "https://github.com/replicate/zoo/assets/14149230/39c124db-a793-4ca9-a9b4-706fe18984ad"
 
-  def mount(_params, _session, socket) do
+  def mount(params, _session, socket) do
     {:ok,
      socket
      |> assign(form: to_form(%{"prompt" => ""}))
      |> assign(local_user_id: nil)
-     |> assign(remove_bg: false)
      |> stream(:my_predictions, [])
      |> stream(:latest_predictions, Predictions.list_latest_safe_predictions(99))}
+  end
+
+  def handle_params(%{"prompt" => prompt}, _, socket) do
+    {:noreply, socket |> assign(form: to_form(%{"prompt" => prompt}))}
+  end
+
+  def handle_params(params, _, socket) do
+    {:noreply, socket}
   end
 
   def handle_event("thumbs-up", %{"id" => id}, socket) do
@@ -36,10 +43,6 @@ defmodule StickerWeb.HomeLive do
       })
 
     {:noreply, socket |> put_flash(:info, "Thanks for your rating!")}
-  end
-
-  def handle_event("toggle-bg", _, socket) do
-    {:noreply, socket |> assign(show_bg: !socket.assigns.show_bg)}
   end
 
   def handle_event("validate", %{"prompt" => _prompt}, socket) do

@@ -1,38 +1,64 @@
-<button
-  id={"prediction-#{@prediction.id}-btn"}
-  phx-hook="DownloadImage"
-  class="mt-4"
-  phx-value-name={@prediction.prompt |> human_name()}
-  phx-value-image={render_image(@prediction, @show_bg)}
-  type="button"
->
-  <img
-    src={render_image(@prediction, @show_bg)}
-    alt={@prediction.prompt}
-    class="pointer-events-none object-cover group-hover:opacity-75"
-  />
-</button>
-<.link
-  navigate={~p"/sticker/#{@prediction.id}"}
-  class="mt-2 block truncate text-center text-4xl font-medium text-gray-900"
->
-  <%= @prediction.prompt %>
-</.link>
-<div class={"flex justify-between items-center feedback-#{@prediction.id}"}>
+<div class="max-w-xl mx-auto">
+  <.form for={@form} id="prediction-form" class="max-w-xl mx-auto" phx-submit="save">
+    <div class="flex items-center w-full ">
+      <.input
+        field={@form[:prompt]}
+        type="text"
+        required
+        placeholder="What is your sticker?"
+        class=""
+      />
+      <.button name="submit" value="generate" class="self-end ml-2">
+        <.icon name="hero-arrow-path" class="h-4 w-4" />
+      </.button>
+    </div>
+  </.form>
+
+  <div class="mt-4 grid grid-cols-2 gap-4">
+    <.outline_button
+      id="download"
+      phx-hook="DownloadImage"
+      phx-value-name={@prediction.prompt}
+      phx-value-image={@prediction.sticker_output}
+    >
+      <.icon name="hero-arrow-down-tray" class="h-4 w-4 mr-2" />Download
+    </.outline_button>
+    <.outline_button
+      id="copy"
+      data-url={"https://sticker.fly.dev/sticker/#{@prediction.id}"}
+      phx-click={JS.dispatch("phx:copy", to: "#copy")}
+    >
+      <.icon name="hero-link" class="h-4 w-4 mr-2" />Share link
+    </.outline_button>
+  </div>
+
   <button
-    id={"thumbs-up-#{@prediction.id}"}
-    phx-click={JS.hide(to: ".feedback-#{@prediction.id}") |> JS.push("thumbs-up")}
-    phx-value-id={@prediction.id}
-    class="rounded-full mt-2"
+    id={"prediction-#{@prediction.id}-btn"}
+    phx-hook="DownloadImage"
+    class="mt-4"
+    phx-value-name={@prediction.prompt}
+    phx-value-image={@prediction.sticker_output}
+    type="button"
   >
-    <img class="h-12" src="/images/thumbs-up.png" alt="" />
+    <img src={@prediction.sticker_output} alt={@prediction.prompt} />
   </button>
-  <button
-    id={"thumbs-down-#{@prediction.id}"}
-    phx-value-id={@prediction.id}
-    phx-click={JS.hide(to: ".feedback-#{@prediction.id}") |> JS.push("thumbs-down")}
-    class="rounded-full mt-2 rotate-180"
-  >
-    <img class="h-12" src="/images/thumbs-up.png" alt="" />
-  </button>
+
+  <div class={"flex justify-between items-center feedback-#{@prediction.id}"}>
+    <button
+      id={"thumbs-up-#{@prediction.id}"}
+      phx-click={JS.hide(to: ".feedback-#{@prediction.id}") |> JS.push("thumbs-up")}
+      phx-value-id={@prediction.id}
+      class="rounded-full mt-2"
+    >
+      <img class="h-12" src="/images/thumbs-up.png" alt="" />
+    </button>
+    <button
+      id={"thumbs-down-#{@prediction.id}"}
+      phx-value-id={@prediction.id}
+      phx-click={JS.hide(to: ".feedback-#{@prediction.id}") |> JS.push("thumbs-down")}
+      class="rounded-full mt-2 rotate-180"
+    >
+      <img class="h-12" src="/images/thumbs-up.png" alt="" />
+    </button>
+  </div>
 </div>
