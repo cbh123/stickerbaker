@@ -90,7 +90,7 @@ defmodule Emoji.Predictions do
       from p in Prediction,
         where: p.local_user_id == ^user_id,
         order_by: [desc: p.inserted_at],
-        where: not is_nil(p.no_bg_output)
+        where: not is_nil(p.emoji_output)
     )
   end
 

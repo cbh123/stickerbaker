@@ -1,7 +1,7 @@
 <div id="history" phx-hook="AssignUserId" class="">
   <.back navigate={~p"/"}>Home</.back>
   <p :if={is_nil(@local_user_id)}>Loading...</p>
-  <.header>My Emojis</.header>
+  <.header>My Stickers</.header>
   <ul
     :if={@local_user_id}
     id="predictions"
