@@ -47,7 +47,7 @@ defmodule StickerWeb.Components do
       navigate={~p"/sticker/#{@prediction.id}"}
       class="mt-2 block truncate text-sm font-medium text-gray-900"
     >
-      :<%= humanize(@prediction.prompt) %>:
+      <%= @prediction.prompt %>
     </.link>
     """
   end

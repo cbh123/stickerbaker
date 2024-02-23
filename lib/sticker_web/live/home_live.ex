@@ -11,8 +11,7 @@ defmodule StickerWeb.HomeLive do
      |> assign(local_user_id: nil)
      |> assign(remove_bg: false)
      |> stream(:my_predictions, [])
-     |> stream(:featured_predictions, Predictions.list_featured_predictions())
-     |> stream(:latest_predictions, Predictions.list_latest_safe_predictions(9))}
+     |> stream(:latest_predictions, Predictions.list_latest_safe_predictions(27))}
   end
 
   def handle_event("thumbs-up", %{"id" => id}, socket) do
@@ -77,7 +76,8 @@ defmodule StickerWeb.HomeLive do
       })
 
     if String.to_integer(rating) >= 9 do
-      {:ok, prediction} = Predictions.update_prediction(prediction, %{sticker_output: @fail_image})
+      {:ok, prediction} =
+        Predictions.update_prediction(prediction, %{sticker_output: @fail_image})
 
       {:noreply,
        socket
