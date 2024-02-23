@@ -5,7 +5,7 @@ import Config
 # when generating URLs.
 config :emoji, EmojiWeb.Endpoint,
   http: [port: {:system, "PORT"}],
-  url: [scheme: "https", host: "emojigen.com", port: 443],
+  url: [scheme: "https", host: "sticker.fly.dev", port: 443],
   cache_static_manifest: "priv/static/cache_manifest.json",
   check_origin: ["https://sticker.fly.dev"]
 
