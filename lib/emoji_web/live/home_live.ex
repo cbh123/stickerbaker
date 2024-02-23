@@ -156,7 +156,8 @@ defmodule EmojiWeb.HomeLive do
         width: 512,
         height: 512,
         num_inference_steps: 20,
-        negative_prompt: "racist, xenophobic, antisemitic, islamophobic, bigoted"
+        negative_prompt: "racist, xenophobic, antisemitic, islamophobic, bigoted",
+        upscale: false
       )
       |> wait()
       |> IO.inspect(label: "pred")
