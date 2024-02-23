@@ -59,7 +59,7 @@ defmodule StickerWeb.Components do
         id={"thumbs-up-#{@prediction.id}"}
         phx-click={JS.hide(to: ".feedback-#{@prediction.id}") |> JS.push("thumbs-up")}
         phx-value-id={@prediction.id}
-        class="rounded-full mt-2"
+        class="rounded-full bg-gray-50 mt-2"
       >
         <img class="h-12" src="/images/thumbs-up.png" alt="" />
       </button>
@@ -67,7 +67,7 @@ defmodule StickerWeb.Components do
         id={"thumbs-down-#{@prediction.id}"}
         phx-value-id={@prediction.id}
         phx-click={JS.hide(to: ".feedback-#{@prediction.id}") |> JS.push("thumbs-down")}
-        class="rounded-full mt-2 rotate-180"
+        class="rounded-full  mt-2 rotate-180"
       >
         <img class="h-12" src="/images/thumbs-up.png" alt="" />
       </button>
