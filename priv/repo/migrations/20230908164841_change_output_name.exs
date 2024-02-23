@@ -1,4 +1,4 @@
-defmodule Emoji.Repo.Migrations.ChangeOutputName do
+defmodule Sticker.Repo.Migrations.ChangeOutputName do
   use Ecto.Migration
 
   def change do

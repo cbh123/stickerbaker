@@ -1,5 +1,5 @@
-defmodule EmojiWeb.PageControllerTest do
-  use EmojiWeb.ConnCase
+defmodule StickerWeb.PageControllerTest do
+  use StickerWeb.ConnCase
 
   test "GET /", %{conn: conn} do
     conn = get(conn, ~p"/")

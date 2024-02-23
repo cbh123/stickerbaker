@@ -1,4 +1,4 @@
-defmodule Emoji.Repo.Migrations.AddEmbeddingsModel do
+defmodule Sticker.Repo.Migrations.AddEmbeddingsModel do
   use Ecto.Migration
 
   def change do

@@ -1,12 +1,12 @@
-defmodule Emoji.SearchTest do
-  use Emoji.DataCase
+defmodule Sticker.SearchTest do
+  use Sticker.DataCase
 
-  alias Emoji.Search
+  alias Sticker.Search
 
   describe "queries" do
-    alias Emoji.Search.Query
+    alias Sticker.Search.Query
 
-    import Emoji.SearchFixtures
+    import Sticker.SearchFixtures
 
     @invalid_attrs %{content: nil, embedding: nil}
 

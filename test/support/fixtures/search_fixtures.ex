@@ -1,7 +1,7 @@
-defmodule Emoji.SearchFixtures do
+defmodule Sticker.SearchFixtures do
   @moduledoc """
   This module defines test helpers for creating
-  entities via the `Emoji.Search` context.
+  entities via the `Sticker.Search` context.
   """
 
   @doc """
@@ -14,7 +14,7 @@ defmodule Emoji.SearchFixtures do
         content: "some content",
         embedding: "some embedding"
       })
-      |> Emoji.Search.create_query()
+      |> Sticker.Search.create_query()
 
     query
   end

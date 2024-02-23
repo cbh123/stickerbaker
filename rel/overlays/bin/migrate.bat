@@ -1,1 +1,1 @@
-call "%~dp0\emoji" eval Emoji.Release.migrate
+call "%~dp0\sticker" eval Sticker.Release.migrate

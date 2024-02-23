@@ -1,12 +1,12 @@
-defmodule Emoji.PredictionsTest do
-  use Emoji.DataCase
+defmodule Sticker.PredictionsTest do
+  use Sticker.DataCase
 
-  alias Emoji.Predictions
+  alias Sticker.Predictions
 
   describe "predictions" do
-    alias Emoji.Predictions.Prediction
+    alias Sticker.Predictions.Prediction
 
-    import Emoji.PredictionsFixtures
+    import Sticker.PredictionsFixtures
 
     @invalid_attrs %{output: nil, prompt: nil, uuid: nil}
 

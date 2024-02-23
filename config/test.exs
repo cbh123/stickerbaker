@@ -5,23 +5,23 @@ import Config
 # The MIX_TEST_PARTITION environment variable can be used
 # to provide built-in test partitioning in CI environment.
 # Run `mix help test` for more information.
-config :emoji, Emoji.Repo,
+config :sticker, Sticker.Repo,
   username: "postgres",
   password: "postgres",
   hostname: "localhost",
-  database: "emoji_test#{System.get_env("MIX_TEST_PARTITION")}",
+  database: "sticker_test#{System.get_env("MIX_TEST_PARTITION")}",
   pool: Ecto.Adapters.SQL.Sandbox,
   pool_size: 10
 
 # We don't run a server during test. If one is required,
 # you can enable the server option below.
-config :emoji, EmojiWeb.Endpoint,
+config :sticker, StickerWeb.Endpoint,
   http: [ip: {127, 0, 0, 1}, port: 4002],
   secret_key_base: "IiGpORUsA8bAtyVCzjt/SbAXA2AYPaL8FTUFTSUUkY3BTLCwU2ser2g4Vb1lzOHu",
   server: false
 
 # In test we don't send emails.
-config :emoji, Emoji.Mailer, adapter: Swoosh.Adapters.Test
+config :sticker, Sticker.Mailer, adapter: Swoosh.Adapters.Test
 
 # Disable swoosh api client as it is only required for production adapters.
 config :swoosh, :api_client, false

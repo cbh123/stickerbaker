@@ -1,4 +1,4 @@
-defmodule Emoji.Repo.Migrations.CreatePredictions do
+defmodule Sticker.Repo.Migrations.CreatePredictions do
   use Ecto.Migration
 
   def change do

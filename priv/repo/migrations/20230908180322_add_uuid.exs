@@ -1,4 +1,4 @@
-defmodule Emoji.Repo.Migrations.AddUuid do
+defmodule Sticker.Repo.Migrations.AddUuid do
   use Ecto.Migration
 
   def change do

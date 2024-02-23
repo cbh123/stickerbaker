@@ -1,0 +1,41 @@
+<div>
+  <.back navigate={~p"/"}>Back</.back>
+  <.form for={@form} class="mt-4" name="sticker-search" id="sticker-search" phx-submit="search">
+    <label for="search" class="block text-sm font-medium text-gray-700">Sticker Search</label>
+    <div class="relative mt-1 flex items-center">
+      <.input
+        type="text"
+        name="query"
+        field={@form[:query]}
+        id="query"
+        required="true"
+        class="block w-full rounded-md border-gray-300 pr-12 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+      />
+    </div>
+    <br />
+    <.input
+      field={@form[:search_via_images]}
+      type="checkbox"
+      label="Search via image description (experimental)"
+      id="exact"
+      class="ml-2"
+    />
+  </.form>
+
+  <div :if={@loading} class="mt-2 animate-pulse">Searching...</div>
+
+  <ul
+    :if={not @loading}
+    id="sticker-list"
+    phx-update="stream"
+    role="list"
+    class="mt-4 gap-6 grid grid-cols-3 divide-y divide-gray-200"
+  >
+    <li :for={{id, {prediction, distance}} <- @streams.results}>
+      <StickerWeb.Components.sticker id={id} prediction={prediction} />
+      <div class="mt-2">
+        <.badge text={"Search distance: #{distance |> round()}"} />
+      </div>
+    </li>
+  </ul>
+</div>

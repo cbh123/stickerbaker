@@ -1,4 +1,4 @@
-defmodule Emoji.Repo.Migrations.AddImageEmbedding do
+defmodule Sticker.Repo.Migrations.AddImageEmbedding do
   use Ecto.Migration
 
   def change do

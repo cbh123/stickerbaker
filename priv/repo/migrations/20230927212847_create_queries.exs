@@ -1,4 +1,4 @@
-defmodule Emoji.Repo.Migrations.CreateQueries do
+defmodule Sticker.Repo.Migrations.CreateQueries do
   use Ecto.Migration
 
   def change do

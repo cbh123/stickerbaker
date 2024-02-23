@@ -7,17 +7,17 @@
 # General application configuration
 import Config
 
-config :emoji,
-  ecto_repos: [Emoji.Repo]
+config :sticker,
+  ecto_repos: [Sticker.Repo]
 
 # Configures the endpoint
-config :emoji, EmojiWeb.Endpoint,
+config :sticker, StickerWeb.Endpoint,
   url: [host: "localhost"],
   render_errors: [
-    formats: [html: EmojiWeb.ErrorHTML, json: EmojiWeb.ErrorJSON],
+    formats: [html: StickerWeb.ErrorHTML, json: StickerWeb.ErrorJSON],
     layout: false
   ],
-  pubsub_server: Emoji.PubSub,
+  pubsub_server: Sticker.PubSub,
   live_view: [signing_salt: "rmFBcq/t"]
 
 # Configures the mailer
@@ -27,7 +27,7 @@ config :emoji, EmojiWeb.Endpoint,
 #
 # For production it's recommended to configure a different adapter
 # at the `config/runtime.exs`.
-config :emoji, Emoji.Mailer, adapter: Swoosh.Adapters.Local
+config :sticker, Sticker.Mailer, adapter: Swoosh.Adapters.Local
 
 # Configure esbuild (the version is required)
 config :esbuild,

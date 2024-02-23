@@ -1,4 +1,4 @@
-defmodule Emoji.Repo.Migrations.AddFeatured do
+defmodule Sticker.Repo.Migrations.AddFeatured do
   use Ecto.Migration
 
   def change do

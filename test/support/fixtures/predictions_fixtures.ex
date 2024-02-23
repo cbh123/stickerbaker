@@ -1,7 +1,7 @@
-defmodule Emoji.PredictionsFixtures do
+defmodule Sticker.PredictionsFixtures do
   @moduledoc """
   This module defines test helpers for creating
-  entities via the `Emoji.Predictions` context.
+  entities via the `Sticker.Predictions` context.
   """
 
   @doc """
@@ -15,7 +15,7 @@ defmodule Emoji.PredictionsFixtures do
         prompt: "some prompt",
         uuid: "some uuid"
       })
-      |> Emoji.Predictions.create_prediction()
+      |> Sticker.Predictions.create_prediction()
 
     prediction
   end

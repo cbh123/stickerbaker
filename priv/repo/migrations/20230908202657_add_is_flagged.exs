@@ -1,4 +1,4 @@
-defmodule Emoji.Repo.Migrations.AddIsFlagged do
+defmodule Sticker.Repo.Migrations.AddIsFlagged do
   use Ecto.Migration
 
   def change do

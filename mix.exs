@@ -1,9 +1,9 @@
-defmodule Emoji.MixProject do
+defmodule Sticker.MixProject do
   use Mix.Project
 
   def project do
     [
-      app: :emoji,
+      app: :sticker,
       version: "0.1.0",
       elixir: "~> 1.14",
       elixirc_paths: elixirc_paths(Mix.env()),
@@ -18,7 +18,7 @@ defmodule Emoji.MixProject do
   # Type `mix help compile.app` for more information.
   def application do
     [
-      mod: {Emoji.Application, []},
+      mod: {Sticker.Application, []},
       extra_applications: [:logger, :runtime_tools, :inets]
     ]
   end

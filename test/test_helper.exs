@@ -1,2 +1,2 @@
 ExUnit.start()
-Ecto.Adapters.SQL.Sandbox.mode(Emoji.Repo, :manual)
+Ecto.Adapters.SQL.Sandbox.mode(Sticker.Repo, :manual)

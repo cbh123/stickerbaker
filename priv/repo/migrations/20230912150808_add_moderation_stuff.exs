@@ -1,4 +1,4 @@
-defmodule Emoji.Repo.Migrations.AddModerationStuff do
+defmodule Sticker.Repo.Migrations.AddModerationStuff do
   use Ecto.Migration
 
   def change do
