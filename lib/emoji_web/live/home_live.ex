@@ -12,7 +12,7 @@ defmodule EmojiWeb.HomeLive do
      |> assign(remove_bg: false)
      |> stream(:my_predictions, [])
      |> stream(:featured_predictions, Predictions.list_featured_predictions())
-     |> stream(:latest_predictions, Predictions.list_latest_predictions(9))}
+     |> stream(:latest_predictions, Predictions.list_latest_safe_predictions(9))}
   end
 
   def handle_event("thumbs-up", %{"id" => id}, socket) do
@@ -123,7 +123,7 @@ defmodule EmojiWeb.HomeLive do
     {:noreply,
      socket
      |> stream_insert(:my_predictions, prediction)
-     |> put_flash(:info, "Image generated. Starting background removal")}
+     |> put_flash(:info, "Sticker generated! Click it to download.")}
   end
 
   defp moderate(prompt) do
