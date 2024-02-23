@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" style="scrollbar-gutter: stable;">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="csrf-token" content={get_csrf_token()} />
+    <.live_title>
+      <%= assigns[:page_title] || "AI Emojis" %>
+    </.live_title>
+
+    <meta property="og:description" content="AI Emojis" />
+    <meta property="og:image" content="https://emoji.fly.dev/og.webp" />
+    <meta property="og:url" content="https://emoji.fly.dev" />
+    <meta property="og:type" content="website" />
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://emoji.fly.dev" />
+    <meta property="twitter:title" content="AI Emojis" />
+    <meta property="twitter:description" content="Make your own emojis with AI" />
+    <meta property="twitter:image" content="https://emoji.fly.dev/og.webp" />
+    <link phx-track-static rel="stylesheet" href={~p"/assets/app.css"} />
+    <script defer phx-track-static type="text/javascript" src={~p"/assets/app.js"}>
+    </script>
+    <!-- Google analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-YSQ4KK6Z2H">
+    </script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-YSQ4KK6Z2H');
+    </script>
+  </head>
+  <body class="bg-white antialiased">
+    <%= @inner_content %>
+  </body>
+</html>
