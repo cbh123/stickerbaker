@@ -11,7 +11,7 @@ defmodule StickerWeb.HomeLive do
      |> assign(local_user_id: nil)
      |> assign(remove_bg: false)
      |> stream(:my_predictions, [])
-     |> stream(:latest_predictions, Predictions.list_latest_safe_predictions(27))}
+     |> stream(:latest_predictions, Predictions.list_latest_safe_predictions(54))}
   end
 
   def handle_event("thumbs-up", %{"id" => id}, socket) do
