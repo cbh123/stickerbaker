@@ -31,7 +31,6 @@ defmodule StickerWeb.Components do
         <% else %>
           <button
             id={"prediction-#{@id}-btn"}
-            phx-hook="DownloadImage"
             phx-value-name={@prediction.prompt |> humanize()}
             phx-value-image={@prediction.no_bg_output || @prediction.sticker_output}
             type="button"
