@@ -9,7 +9,7 @@ defmodule StickerWeb.Components do
     ~H"""
     <div class={@class}>
       <.image id={@id} prediction={@prediction} />
-      <.feedback id={@id} prediction={@prediction} />
+      <%!-- <.feedback id={@id} prediction={@prediction} /> --%>
     </div>
     """
   end
