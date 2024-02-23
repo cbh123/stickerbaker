@@ -10,7 +10,7 @@ defmodule StickerWeb.HomeLive do
      |> assign(form: to_form(%{"prompt" => ""}))
      |> assign(local_user_id: nil)
      |> stream(:my_predictions, [])
-     |> stream(:latest_predictions, Predictions.list_latest_safe_predictions(99))}
+     |> stream(:latest_predictions, Predictions.list_latest_safe_predictions(300))}
   end
 
   def handle_params(%{"prompt" => prompt}, _, socket) do
