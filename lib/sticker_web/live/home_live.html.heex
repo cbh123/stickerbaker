@@ -52,10 +52,10 @@
       id="my-predictions"
       phx-update="stream"
       role="list"
-      class="grid grid-cols-2 mt-6 gap-x-4 gap-y-8 sm:gap-x-6 lg:grid-cols-3 xl:gap-x-8"
+      class="grid grid-cols-3 mt-6 gap-x-4 gap-y-8 sm:gap-x-6 lg:grid-cols-5 xl:gap-x-8"
     >
-      <li :for={{id, prediction} <- @streams.my_predictions} id={id} class="relative">
-        <StickerWeb.Components.sticker id={id} prediction={prediction} />
+      <li :for={{id, prediction} <- @streams.my_predictions} id={id} class="relative flex-none">
+        <StickerWeb.Components.sticker class="w-52" id={id} prediction={prediction} />
       </li>
     </ul>
   </div>
