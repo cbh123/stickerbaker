@@ -11,7 +11,7 @@ defmodule EmojiWeb.HomeLive do
      |> assign(local_user_id: nil)
      |> assign(remove_bg: false)
      |> stream(:my_predictions, [])
-     |> stream(:featured_predictions, Predictions.list_featured_predictions())
+     |> stream(:featured_predictions, Predictions.list_latest_predictions(9))
      |> stream(:latest_predictions, Predictions.list_latest_safe_predictions(9))}
   end
 
