@@ -198,7 +198,7 @@ defmodule EmojiWeb.HomeLive do
       Jason.encode!(%{
         chat_id: chat_id,
         text:
-          "prompt: #{prompt}, image: #{image}, url: https://emoji.fly.dev/emoji/#{id}, moderation score: #{score}"
+          "prompt: #{prompt}, image: #{image}, url: https://sticker.fly.dev/emoji/#{id}, moderation score: #{score}"
       })
 
     HTTPoison.post(url, body, headers)

@@ -7,7 +7,7 @@ config :emoji, EmojiWeb.Endpoint,
   http: [port: {:system, "PORT"}],
   url: [scheme: "https", host: "emojigen.com", port: 443],
   cache_static_manifest: "priv/static/cache_manifest.json",
-  check_origin: ["https://emojigen.com", "https://www.emojigen.com", "https://emoji.fly.dev"]
+  check_origin: ["https://sticker.fly.dev"]
 
 # Note we also include the path to a cache manifest
 # containing the digested version of static files. This
