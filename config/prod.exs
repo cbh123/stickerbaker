@@ -3,11 +3,6 @@ import Config
 # For production, don't forget to configure the url host
 # to something meaningful, Phoenix uses this information
 # when generating URLs.
-# config :emoji, EmojiWeb.Endpoint,
-#   http: [port: {:system, "PORT"}],
-#   url: [scheme: "https", host: "sticker.fly.dev", port: 443],
-#   cache_static_manifest: "priv/static/cache_manifest.json",
-#   check_origin: ["https://sticker.fly.dev"]
 
 # Note we also include the path to a cache manifest
 # containing the digested version of static files. This
