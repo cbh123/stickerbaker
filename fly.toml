@@ -1,10 +1,10 @@
-# fly.toml app configuration file generated for sticker on 2024-02-23T09:53:31-08:00
+# fly.toml app configuration file generated for sticker-maker on 2024-02-23T10:35:34-08:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
 app = 'sticker'
-primary_region = 'lax'
+primary_region = 'ewr'
 kill_signal = 'SIGTERM'
 
 [build]
