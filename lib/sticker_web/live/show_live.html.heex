@@ -14,27 +14,6 @@
     </div>
   </.form>
 
-  <div class="text-center">
-    <button
-      :if={not @given_feedback}
-      id={"thumbs-up-#{@prediction.id}"}
-      phx-click="thumbs-up"
-      phx-value-id={@prediction.id}
-      class="rounded-full mt-2"
-    >
-      <img class="h-12" src="/images/thumbs-up.png" alt="" />
-    </button>
-    <button
-      :if={not @given_feedback}
-      id={"thumbs-down-#{@prediction.id}"}
-      phx-click="thumbs-down"
-      phx-value-id={@prediction.id}
-      class="rounded-full mt-2 rotate-180"
-    >
-      <img class="h-12" src="/images/thumbs-up.png" alt="" />
-    </button>
-  </div>
-
   <div class="mt-4 grid grid-cols-2 items-center gap-4">
     <.outline_button id="download">
       <a
@@ -54,14 +33,23 @@
     </.outline_button>
   </div>
 
-  <button
-    id={"prediction-#{@prediction.id}-btn"}
-    phx-hook="DownloadImage"
-    class="mt-4 relative"
-    phx-value-name={@prediction.prompt}
-    phx-value-image={@prediction.sticker_output}
-    type="button"
-  >
+  <div class="relative">
     <img src={@prediction.sticker_output} alt={@prediction.prompt} />
-  </button>
+
+    <button
+      :if={not @given_feedback}
+      id={"thumbs-down-#{@prediction.id}"}
+      phx-click="thumbs-down"
+      phx-value-id={@prediction.id}
+      class="rounded-full absolute top-4 right-4 rotate-12 hover:rotate-6 group"
+    >
+      <img
+        title="thumbs up!"
+        alt="thumbs up"
+        class="h-24 group-hover:h-28"
+        src="/images/thumbs-up.png"
+        alt=""
+      />
+    </button>
+  </div>
 </div>
