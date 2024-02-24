@@ -15,7 +15,7 @@ defmodule StickerWeb.SEO do
         site: "@charliebholtz",
         creator: ["@charliebholtz"],
         card: :summary,
-        summary_card_image: "/images/thumbs-up.png"
+        summary_card_image: "/og.webp"
       )
 
   def site_config(conn) do
