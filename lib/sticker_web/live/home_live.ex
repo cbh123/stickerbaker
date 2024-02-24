@@ -5,7 +5,7 @@ defmodule StickerWeb.HomeLive do
   @fail_image "https://github.com/replicate/zoo/assets/14149230/39c124db-a793-4ca9-a9b4-706fe18984ad"
 
   def mount(params, _session, socket) do
-    page = 1
+    page = 0
     per_page = 20
     max_pages = Predictions.number_safe_predictions() / per_page
 
