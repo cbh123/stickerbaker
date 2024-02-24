@@ -14,17 +14,6 @@
     </div>
   </.form>
 
-  <button
-    id={"prediction-#{@prediction.id}-btn"}
-    phx-hook="DownloadImage"
-    class="mt-4 relative"
-    phx-value-name={@prediction.prompt}
-    phx-value-image={@prediction.sticker_output}
-    type="button"
-  >
-    <img src={@prediction.sticker_output} alt={@prediction.prompt} />
-  </button>
-
   <div class="text-center">
     <button
       :if={not @given_feedback}
@@ -64,4 +53,15 @@
       <.icon name="hero-link" class="h-4 w-4 mr-2" />Share
     </.outline_button>
   </div>
+
+  <button
+    id={"prediction-#{@prediction.id}-btn"}
+    phx-hook="DownloadImage"
+    class="mt-4 relative"
+    phx-value-name={@prediction.prompt}
+    phx-value-image={@prediction.sticker_output}
+    type="button"
+  >
+    <img src={@prediction.sticker_output} alt={@prediction.prompt} />
+  </button>
 </div>
