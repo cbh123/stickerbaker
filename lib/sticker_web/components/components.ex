@@ -15,12 +15,20 @@ defmodule StickerWeb.Components do
 
   defp image(assigns) do
     random_bg =
-      ["bg-green-50", "bg-pink-50", "bg-red-50", "bg-gray-50", "bg-orange-100", "bg-teal-50"]
+      [
+        "bg-green-50",
+        "bg-pink-50",
+        "bg-blue-50",
+        "bg-red-50",
+        "bg-gray-50",
+        "bg-orange-100",
+        "bg-teal-50"
+      ]
       |> Enum.random()
 
     ~H"""
     <.link navigate={~p"/sticker/#{@prediction.id}"}>
-      <span class="bg-green-50 bg-pink-50 bg-red-50 bg-gray-50 bg-orange-100 bg-teal-50 hidden">
+      <span class="bg-green-50 bg-blue-50 bg-pink-50 bg-red-50 bg-gray-50 bg-orange-100 bg-teal-50 hidden">
       </span>
       <div class={"group aspect-h-10 aspect-w-10 block overflow-hidden rounded-lg #{random_bg} focus-within:ring-2 focus-within:ring-black-500 focus-within:ring-offset-2 focus-within:ring-offset-gray-100"}>
         <%= if is_nil(@prediction.sticker_output) and is_nil(@prediction.no_bg_output) do %>
