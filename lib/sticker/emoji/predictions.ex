@@ -86,6 +86,14 @@ defmodule Sticker.Predictions do
     |> Repo.all()
   end
 
+  def number_safe_predictions() do
+    from(p in Prediction,
+      where: not is_nil(p.sticker_output) and p.moderation_score <= 5,
+      order_by: [desc: p.inserted_at]
+    )
+    |> Repo.aggregate(:count)
+  end
+
   def list_latest_predictions(limit) do
     Repo.all(
       from p in Prediction,

@@ -6,14 +6,18 @@ defmodule StickerWeb.HomeLive do
 
   def mount(params, _session, socket) do
     page = 1
+    per_page = 20
+    max_pages = Predictions.number_safe_predictions() / per_page
 
     {:ok,
      socket
      |> assign(form: to_form(%{"prompt" => ""}))
      |> assign(local_user_id: nil)
      |> assign(page: page)
+     |> assign(per_page: per_page)
+     |> assign(max_pages: max_pages)
      |> stream(:my_predictions, [])
-     |> stream(:latest_predictions, Predictions.list_latest_safe_predictions(page))}
+     |> stream(:latest_predictions, Predictions.list_latest_safe_predictions(page, per_page))}
   end
 
   def handle_params(%{"prompt" => prompt}, _, socket) do
@@ -26,7 +30,9 @@ defmodule StickerWeb.HomeLive do
 
   def handle_event("load-more", _, %{assigns: assigns} = socket) do
     next_page = assigns.page + 1
-    latest_predictions = Predictions.list_latest_safe_predictions(assigns.page)
+
+    latest_predictions =
+      Predictions.list_latest_safe_predictions(assigns.page, socket.assigns.per_page)
 
     {:noreply,
      socket
