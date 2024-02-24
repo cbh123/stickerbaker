@@ -15,7 +15,7 @@ defmodule StickerWeb.ShowLive do
      |> SEO.assign(%{
        title: "Check out this AI sticker I made!",
        description: prediction.prompt,
-       image: "https://pub-82daccc61df3403caca8ae1ecbca94bf.r2.dev/prediction-103-sticker.png"
+       image: prediction.sticker_output
      })}
   end
 

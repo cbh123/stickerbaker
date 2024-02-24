@@ -28,8 +28,11 @@ config :ex_aws,
   secret_access_key: System.get_env("AWS_SECRET_ACCESS_KEY"),
   s3: [
     scheme: "https://",
-    host: System.fetch_env!("AWS_ENDPOINT_URL_S3"),
-    region: System.fetch_env!("AWS_REGION")
+    host: "fly.storage.tigris.dev",
+    region: System.get_env("AWS_REGION"),
+    bucket:
+      System.get_env("BUCKET_NAME") ||
+        raise("Missing env variable: BUCKET_NAME")
   ]
 
 if config_env() == :prod do

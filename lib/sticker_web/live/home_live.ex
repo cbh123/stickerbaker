@@ -91,7 +91,8 @@ defmodule StickerWeb.HomeLive do
   end
 
   def handle_info({:image_generated, prediction, {:ok, r8_prediction}}, socket) do
-    r2_url = save_r2("prediction-#{prediction.id}-sticker", r8_prediction.output |> List.last())
+    r2_url =
+      save_r2("prediction-#{prediction.id}-sticker.png", r8_prediction.output |> List.last())
 
     {:ok, prediction} =
       Predictions.update_prediction(prediction, %{
@@ -155,16 +156,16 @@ defmodule StickerWeb.HomeLive do
     end)
   end
 
-  def save_r2(name, image_url) do
+  def save_r2(file_name, image_url) do
     image_binary = Req.get!(image_url).body
-    file_name = "#{name}.png"
-    bucket = System.get_env("CLOUDFLARE_BUCKET")
+    bucket = System.fetch_env!("BUCKET_NAME")
 
     %{status_code: 200} =
-      ExAws.S3.put_object(bucket, file_name, image_binary)
+      bucket
+      |> ExAws.S3.put_object(file_name, image_binary)
       |> ExAws.request!()
 
-    "#{System.get_env("CLOUDFLARE_PUBLIC_URL")}/#{file_name}"
+    "#{System.get_env("AWS_PUBLIC_URL")}/#{bucket}/#{file_name}"
   end
 
   def send_telegram_message(prompt, image, id, score) do
