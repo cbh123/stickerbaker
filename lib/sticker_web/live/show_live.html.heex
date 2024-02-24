@@ -35,6 +35,15 @@
     >
       <img class="h-12" src="/images/thumbs-up.png" alt="" />
     </button>
+    <button
+      :if={not @given_feedback}
+      id={"thumbs-down-#{@prediction.id}"}
+      phx-click="thumbs-down"
+      phx-value-id={@prediction.id}
+      class="rounded-full mt-2 rotate-180"
+    >
+      <img class="h-12" src="/images/thumbs-up.png" alt="" />
+    </button>
   </div>
 
   <div class="mt-4 grid grid-cols-2 items-center gap-4">

@@ -50,6 +50,7 @@ defmodule StickerWeb.ShowLive do
         count_votes: prediction.count_votes + 1
       })
 
-    {:noreply, socket |> put_flash(:info, "Thanks for your rating!")}
+    {:noreply,
+     socket |> assign(given_feedback: true) |> put_flash(:info, "Thanks for your rating!")}
   end
 end
