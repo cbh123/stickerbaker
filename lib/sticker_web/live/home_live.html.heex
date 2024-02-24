@@ -1,8 +1,8 @@
 <div id="home" phx-hook="AssignUserId">
   <div class="mb-20 mt-12 w-full text-center">
     <div class="mb-3 inline-flex items-center">
-      <img src="/images/thumbs-up.png" alt="" class="h-12" />
-      <p class="font-bold text-3xl ">StickerBaker</p>
+      <img src="/images/chef.png" class="h-16" />
+      <p class="font-bold text-3xl">StickerBaker</p>
     </div>
     <p class="text-xl italic">Let's bake some stickers!</p>
   </div>
@@ -55,7 +55,7 @@
       <StickerWeb.Components.sticker id={id} prediction={prediction} />
     </li>
   </ul>
-  <p :if={@page < @max_pages} class="animate-pulse text-4xl text-center italic my-24">
-    Loading...
+  <p :if={@page < @max_pages} class="animate-pulse text-xl text-center italic my-24">
+    <img class="h-32 mx-auto" src="/images/loading.png" alt="loading" /> Loading...
   </p>
 </div>

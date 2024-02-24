@@ -2,82 +2,65 @@
   <h3 class="text-center text-3xl font-bold mb-4">
     &ldquo;<%= @prediction.prompt %>&rdquo;
   </h3>
-  <div class="relative">
+  <div class="text-center">
     <img src={@prediction.sticker_output} alt={@prediction.prompt} />
 
-    <%!-- New sticker --%>
-    <.link
-      id="copy"
-      class="rounded-full inline-flex group items-center text-center absolute bottom-4 right-4 rotate-12 hover:rotate-6 group"
-      navigate={~p"/?prompt=#{@prediction.prompt}"}
-    >
-      <span class="text-sm text-purple-500 font-bold invisible group-hover:visible">new</span>
-      <img
-        title="new"
-        alt="new"
-        class="h-28 group-hover:h-32"
-        src="/images/new.png"
-        alt=""
-        loading="lazy"
-      />
-    </.link>
-
-    <%!-- Share --%>
-    <div class="text-center">
-      <button
+    <div class="inline-flex items-center mx-auto">
+      <%!-- New sticker --%>
+      <.link
         id="copy"
-        data-url={"https://stickerbaker.com/sticker/#{@prediction.id}"}
-        phx-click={JS.dispatch("phx:copy", to: "#copy")}
-        class="rounded-full inline-flex group items-center text-center absolute bottom-4 left-4 -rotate-12 hover:-rotate-6 group"
+        class="rounded-full group text-center rotate-12 hover:rotate-6"
+        navigate={~p"/?prompt=#{@prediction.prompt}"}
       >
-        <img
-          title="share"
-          alt="download"
-          class="h-24 group-hover:h-28"
-          src="/images/airplane.png"
-          alt=""
-          loading="lazy"
-        />
-        <span class="text-sm text-blue-500 font-bold invisible group-hover:visible">share</span>
+        <img title="new" alt="new" class="h-24" src="/images/new.png" alt="" loading="lazy" />
+        <span class="text-sm text-purple-500 font-bold invisible group-hover:visible">new</span>
+      </.link>
+
+      <%!-- Share --%>
+      <div class="text-center">
+        <button
+          id="copy"
+          data-url={"https://stickerbaker.com/sticker/#{@prediction.id}"}
+          phx-click={JS.dispatch("phx:copy", to: "#copy")}
+          class="rounded-full text-center -rotate-12 hover:-rotate-6 group"
+        >
+          <img
+            title="share"
+            alt="download"
+            class="h-28"
+            src="/images/airplane.png"
+            alt=""
+            loading="lazy"
+          />
+          <span class="text-sm text-blue-500 font-bold invisible group-hover:visible">share</span>
+        </button>
+      </div>
+
+      <%!-- Download --%>
+      <a
+        href={@prediction.sticker_output}
+        download={@prediction.prompt <> ".png"}
+        class="rounded-full group items-center text-center -rotate-12 hover:-rotate-6 group"
+      >
+        <img title="download" alt="download" class="h-24" src="/images/save.png" alt="" />
+        <span class="text-sm text-gray-800 font-bold invisible group-hover:visible">
+          save
+        </span>
+      </a>
+
+      <%!-- Thumbs up --%>
+      <button
+        :if={not @given_feedback}
+        id={"thumbs-down-#{@prediction.id}"}
+        phx-click="thumbs-down"
+        phx-value-id={@prediction.id}
+        class="rounded-full group text-center rotate-12 hover:rotate-6"
+      >
+        <img title="thumbs up!" alt="thumbs up" class="h-24" src="/images/thumbs-up.png" alt="" />
+        <span class="text-sm invisible group-hover:visible text-teal-600 font-bold">
+          thumbs up
+        </span>
       </button>
     </div>
-
-    <%!-- Download --%>
-    <a
-      href={@prediction.sticker_output}
-      download={@prediction.prompt <> ".png"}
-      class="rounded-full inline-flex group items-center text-center absolute top-4 left-4 -rotate-12 hover:-rotate-6 group"
-    >
-      <img
-        title="download"
-        alt="download"
-        class="h-24 group-hover:h-28"
-        src="/images/save.png"
-        alt=""
-      />
-      <span class="text-sm -pt-4 text-gray-800 font-bold invisible group-hover:visible">
-        save
-      </span>
-    </a>
-
-    <%!-- Thumbs up --%>
-    <button
-      :if={not @given_feedback}
-      id={"thumbs-down-#{@prediction.id}"}
-      phx-click="thumbs-down"
-      phx-value-id={@prediction.id}
-      class="rounded-full group text-center inline-flex items-center absolute top-4 right-4 rotate-12 hover:rotate-6 group"
-    >
-      <span class="text-sm invisible group-hover:visible -pt-4 text-teal-600 font-bold">
-        thumbs up
-      </span>
-      <img
-        title="thumbs up!"
-        alt="thumbs up"
-        class="h-24 group-hover:h-28"
-        src="/images/thumbs-up.png"
-        alt=""
-      />
-    </button>
   </div>
 </div>
