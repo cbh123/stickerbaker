@@ -24,12 +24,12 @@ config :replicate,
   replicate_api_token: System.get_env("REPLICATE_API_TOKEN")
 
 config :ex_aws,
-  access_key_id: System.get_env("CLOUDFLARE_ACCESS_KEY_ID"),
-  secret_access_key: System.get_env("CLOUDFLARE_SECRET_ACCESS_KEY"),
+  access_key_id: System.get_env("AWS_ACCESS_KEY_ID"),
+  secret_access_key: System.get_env("AWS_SECRET_ACCESS_KEY"),
   s3: [
     scheme: "https://",
-    host: "f8cf3fdd7d34cbe87d92a631b818efa1.r2.cloudflarestorage.com",
-    region: "wnam"
+    host: System.fetch_env!("AWS_ENDPOINT_URL_S3"),
+    region: System.fetch_env!("AWS_REGION")
   ]
 
 if config_env() == :prod do

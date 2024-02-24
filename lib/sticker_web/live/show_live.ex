@@ -1,13 +1,22 @@
 defmodule StickerWeb.ShowLive do
   use StickerWeb, :live_view
   alias Sticker.Predictions
-  alias Sticker.Predictions.Prediction
 
   def mount(%{"id" => id}, _session, socket) do
     prediction = Predictions.get_prediction!(id)
+    IO.puts("prediction.sticker_output: #{prediction.sticker_output}")
 
     {:ok,
-     socket |> assign(prediction: prediction, form: to_form(%{"prompt" => prediction.prompt}))}
+     socket
+     |> assign(
+       prediction: prediction,
+       form: to_form(%{"prompt" => prediction.prompt})
+     )
+     |> SEO.assign(%{
+       title: "Check out this AI sticker I made!",
+       description: prediction.prompt,
+       image: "https://pub-82daccc61df3403caca8ae1ecbca94bf.r2.dev/prediction-103-sticker.png"
+     })}
   end
 
   def handle_event("save", %{"prompt" => prompt}, socket) do

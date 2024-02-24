@@ -15,20 +15,21 @@
   </.form>
 
   <div class="mt-4 grid grid-cols-2 gap-4">
-    <.outline_button
-      id="download"
-      phx-hook="DownloadImage"
-      phx-value-name={@prediction.prompt}
-      phx-value-image={@prediction.sticker_output}
-    >
-      <.icon name="hero-arrow-down-tray" class="h-4 w-4 mr-2" />Download
+    <.outline_button id="download">
+      <a
+        href={@prediction.sticker_output}
+        download={@prediction.prompt <> ".png"}
+        class="download-link w-full block"
+      >
+        <.icon name="hero-arrow-down-tray" class="h-4 w-4 mr-2" />Download
+      </a>
     </.outline_button>
     <.outline_button
       id="copy"
       data-url={"https://sticker.fly.dev/sticker/#{@prediction.id}"}
       phx-click={JS.dispatch("phx:copy", to: "#copy")}
     >
-      <.icon name="hero-link" class="h-4 w-4 mr-2" />Share link
+      <.icon name="hero-link" class="h-4 w-4 mr-2" />Share
     </.outline_button>
   </div>
 

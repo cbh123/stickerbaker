@@ -4,19 +4,13 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="csrf-token" content={get_csrf_token()} />
+
+    <SEO.juice conn={@conn} config={StickerWeb.SEO.config()} page_title={assigns[:page_title]} />
+
     <.live_title>
       <%= assigns[:page_title] || "AI Sticker Maker" %>
     </.live_title>
 
-    <meta property="og:description" content="AI Sticker Maker" />
-    <meta property="og:image" content="https://sticker.fly.dev/og.webp" />
-    <meta property="og:url" content="https://sticker.fly.dev" />
-    <meta property="og:type" content="website" />
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content="https://sticker.fly.dev" />
-    <meta property="twitter:title" content="AI Sticker Maker" />
-    <meta property="twitter:description" content="Make your own stickers with AI" />
-    <meta property="twitter:image" content="https://sticker.fly.dev/og.webp" />
     <link phx-track-static rel="stylesheet" href={~p"/assets/app.css"} />
     <script defer phx-track-static type="text/javascript" src={~p"/assets/app.js"}>
     </script>

@@ -10,7 +10,7 @@
     class="grid grid-cols-2 mt-6 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8"
   >
     <li :for={{id, prediction} <- @streams.predictions} id={id} class="relative">
-      <StickerWeb.Components.sticker_no_feedback id={id} prediction={prediction} />
+      <StickerWeb.Components.sticker id={id} prediction={prediction} />
     </li>
   </ul>
 </div>

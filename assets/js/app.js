@@ -83,10 +83,10 @@ window.addEventListener("phx:copy", async (event) => {
   } else {
     // Fallback for browsers that do not support the Web Share API
     // For example, copy the URL to clipboard
-    navigator.clipboard.writeText(text).then(() => {
+    navigator.clipboard.writeText(urlToShare).then(() => {
       button.innerText = "Link copied to clipboard!";
       setTimeout(() => {
-        button.innerText = "Share link";
+        button.innerText = "Share";
       }, 2000);
     });
   }

@@ -9,14 +9,7 @@ defmodule StickerWeb.Components do
     ~H"""
     <div class={@class}>
       <.image id={@id} prediction={@prediction} />
-      <%!-- <.feedback id={@id} prediction={@prediction} /> --%>
     </div>
-    """
-  end
-
-  def sticker_no_feedback(assigns) do
-    ~H"""
-    <.image id={@id} prediction={@prediction} />
     """
   end
 
