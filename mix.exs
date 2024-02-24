@@ -58,7 +58,8 @@ defmodule Sticker.MixProject do
       {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
       {:image, "~> 0.37"},
       {:req, "~> 0.4.3"},
-      {:httpoison, "~> 2.0", override: true}
+      {:httpoison, "~> 2.0", override: true},
+      {:phoenix_seo, "~> 0.1.9"}
     ]
   end
 
