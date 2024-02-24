@@ -11,11 +11,15 @@ defmodule StickerWeb.ShowLive do
      |> assign(
        prediction: prediction,
        form: to_form(%{"prompt" => prediction.prompt})
-     )
-     |> SEO.assign(%{
-       title: "Check out this AI sticker I made!",
-       description: prediction.prompt,
-       image: prediction.sticker_output
+     ), temporary_assigns: [{SEO.key(), nil}]}
+  end
+
+  def handle_params(params, _url, socket) do
+    {:noreply,
+     SEO.assign(socket, %{
+       title: "I made an AI sticker of #{socket.assigns.prediction.prompt}",
+       description: socket.assigns.prediction.prompt,
+       image: socket.assigns.prediction.sticker_output
      })}
   end
 

@@ -7,10 +7,6 @@
 
     <SEO.juice conn={@conn} config={StickerWeb.SEO.config()} page_title={assigns[:page_title]} />
 
-    <.live_title>
-      <%= assigns[:page_title] || "AI Sticker Maker" %>
-    </.live_title>
-
     <link phx-track-static rel="stylesheet" href={~p"/assets/app.css"} />
     <script defer phx-track-static type="text/javascript" src={~p"/assets/app.js"}>
     </script>
