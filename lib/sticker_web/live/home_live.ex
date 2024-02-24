@@ -5,12 +5,15 @@ defmodule StickerWeb.HomeLive do
   @fail_image "https://github.com/replicate/zoo/assets/14149230/39c124db-a793-4ca9-a9b4-706fe18984ad"
 
   def mount(params, _session, socket) do
+    page = 1
+
     {:ok,
      socket
      |> assign(form: to_form(%{"prompt" => ""}))
      |> assign(local_user_id: nil)
+     |> assign(page: page)
      |> stream(:my_predictions, [])
-     |> stream(:latest_predictions, Predictions.list_latest_safe_predictions(300))}
+     |> stream(:latest_predictions, Predictions.list_latest_safe_predictions(page))}
   end
 
   def handle_params(%{"prompt" => prompt}, _, socket) do
@@ -19,6 +22,16 @@ defmodule StickerWeb.HomeLive do
 
   def handle_params(params, _, socket) do
     {:noreply, socket}
+  end
+
+  def handle_event("load-more", _, %{assigns: assigns} = socket) do
+    next_page = assigns.page + 1
+    latest_predictions = Predictions.list_latest_safe_predictions(assigns.page)
+
+    {:noreply,
+     socket
+     |> assign(page: next_page)
+     |> stream(:latest_predictions, latest_predictions)}
   end
 
   def handle_event("validate", %{"prompt" => _prompt}, socket) do

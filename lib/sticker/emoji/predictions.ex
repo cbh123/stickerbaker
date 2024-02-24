@@ -58,7 +58,9 @@ defmodule Sticker.Predictions do
   end
 
   def list_predictions_with_text_embeddings do
-    Repo.all(from p in Prediction, where: not is_nil(p.embedding) and not is_nil(p.sticker_output))
+    Repo.all(
+      from p in Prediction, where: not is_nil(p.embedding) and not is_nil(p.sticker_output)
+    )
   end
 
   def list_predictions_with_image_embeddings do
@@ -67,13 +69,21 @@ defmodule Sticker.Predictions do
     )
   end
 
-  def list_latest_safe_predictions(limit) do
-    Repo.all(
-      from p in Prediction,
-        where: not is_nil(p.sticker_output) and p.moderation_score <= 5,
-        order_by: [desc: p.inserted_at],
-        limit: ^limit
+  def paginate(query, page, per_page) do
+    offset_by = per_page * page
+
+    query
+    |> limit(^per_page)
+    |> offset(^offset_by)
+  end
+
+  def list_latest_safe_predictions(page, per_page \\ 20) do
+    from(p in Prediction,
+      where: not is_nil(p.sticker_output) and p.moderation_score <= 5,
+      order_by: [desc: p.inserted_at]
     )
+    |> paginate(page, per_page)
+    |> Repo.all()
   end
 
   def list_latest_predictions(limit) do
