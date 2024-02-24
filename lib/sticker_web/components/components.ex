@@ -46,6 +46,7 @@ defmodule StickerWeb.Components do
               src={@prediction.no_bg_output || @prediction.sticker_output}
               alt={@prediction.prompt}
               class="pointer-events-none object-cover group-hover:opacity-75"
+              loading="lazy"
             />
           </button>
         <% end %>
