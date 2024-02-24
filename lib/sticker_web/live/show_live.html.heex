@@ -17,7 +17,7 @@
   <button
     id={"prediction-#{@prediction.id}-btn"}
     phx-hook="DownloadImage"
-    class="mt-4"
+    class="mt-4 relative"
     phx-value-name={@prediction.prompt}
     phx-value-image={@prediction.sticker_output}
     type="button"
@@ -25,7 +25,19 @@
     <img src={@prediction.sticker_output} alt={@prediction.prompt} />
   </button>
 
-  <div class="mt-4 grid grid-cols-3 items-center gap-4">
+  <div class="text-center">
+    <button
+      :if={not @given_feedback}
+      id={"thumbs-up-#{@prediction.id}"}
+      phx-click="thumbs-up"
+      phx-value-id={@prediction.id}
+      class="rounded-full mt-2"
+    >
+      <img class="h-12" src="/images/thumbs-up.png" alt="" />
+    </button>
+  </div>
+
+  <div class="mt-4 grid grid-cols-2 items-center gap-4">
     <.outline_button id="download">
       <a
         href={@prediction.sticker_output}
@@ -42,16 +54,5 @@
     >
       <.icon name="hero-link" class="h-4 w-4 mr-2" />Share
     </.outline_button>
-
-    <span :if={not @given_feedback} class="text-center">
-      <button
-        id={"thumbs-up-#{@prediction.id}"}
-        phx-click="thumbs-up"
-        phx-value-id={@prediction.id}
-        class="rounded-full mt-2"
-      >
-        <img class="h-12" src="/images/thumbs-up.png" alt="" />
-      </button>
-    </span>
   </div>
 </div>
