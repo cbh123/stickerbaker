@@ -8,7 +8,7 @@ defmodule StickerWeb.SEO do
         description: "Make stickers with AI",
         site_name: "Sticker Maker",
         locale: "en_US",
-        image: "https://fly.storage.tigris.dev/sticker-bucket/thumbs-up.png"
+        image: "/og.webp"
       ),
     twitter:
       SEO.Twitter.build(
