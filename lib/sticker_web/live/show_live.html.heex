@@ -14,7 +14,18 @@
     </div>
   </.form>
 
-  <div class="mt-4 grid grid-cols-2 gap-4">
+  <button
+    id={"prediction-#{@prediction.id}-btn"}
+    phx-hook="DownloadImage"
+    class="mt-4"
+    phx-value-name={@prediction.prompt}
+    phx-value-image={@prediction.sticker_output}
+    type="button"
+  >
+    <img src={@prediction.sticker_output} alt={@prediction.prompt} />
+  </button>
+
+  <div class="mt-4 grid grid-cols-3 items-center gap-4">
     <.outline_button id="download">
       <a
         href={@prediction.sticker_output}
@@ -31,35 +42,16 @@
     >
       <.icon name="hero-link" class="h-4 w-4 mr-2" />Share
     </.outline_button>
-  </div>
 
-  <button
-    id={"prediction-#{@prediction.id}-btn"}
-    phx-hook="DownloadImage"
-    class="mt-4"
-    phx-value-name={@prediction.prompt}
-    phx-value-image={@prediction.sticker_output}
-    type="button"
-  >
-    <img src={@prediction.sticker_output} alt={@prediction.prompt} />
-  </button>
-
-  <div class={"flex justify-between items-center feedback-#{@prediction.id}"}>
-    <button
-      id={"thumbs-up-#{@prediction.id}"}
-      phx-click={JS.hide(to: ".feedback-#{@prediction.id}") |> JS.push("thumbs-up")}
-      phx-value-id={@prediction.id}
-      class="rounded-full mt-2"
-    >
-      <img class="h-12" src="/images/thumbs-up.png" alt="" />
-    </button>
-    <button
-      id={"thumbs-down-#{@prediction.id}"}
-      phx-value-id={@prediction.id}
-      phx-click={JS.hide(to: ".feedback-#{@prediction.id}") |> JS.push("thumbs-down")}
-      class="rounded-full mt-2 rotate-180"
-    >
-      <img class="h-12" src="/images/thumbs-up.png" alt="" />
-    </button>
+    <span :if={not @given_feedback} class="text-center">
+      <button
+        id={"thumbs-up-#{@prediction.id}"}
+        phx-click="thumbs-up"
+        phx-value-id={@prediction.id}
+        class="rounded-full mt-2"
+      >
+        <img class="h-12" src="/images/thumbs-up.png" alt="" />
+      </button>
+    </span>
   </div>
 </div>
