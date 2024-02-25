@@ -19,8 +19,8 @@ defmodule Sticker.Utils do
         Logger.warning("WE ARE IN LOCALHOST — IS NGROK SETUP?")
         System.fetch_env!("NGROK_URL")
 
-      url ->
-        url
+      host ->
+        "https://#{host}"
     end
   end
 end
