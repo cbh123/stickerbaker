@@ -3,7 +3,17 @@
     &ldquo;<%= @prediction.prompt %>&rdquo;
   </h3>
   <div class="text-center">
-    <img src={@prediction.sticker_output} alt={@prediction.prompt} />
+    <%= if is_nil(@prediction.sticker_output) do %>
+      <div class="flex items-center justify-center relative animate-pulse rounded-xl">
+        <img
+          class="rounded-xl"
+          src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExZTRjN3Z0Y2o2YmwwNDhxaGpubnk1YXAwOGpzNGhhZ2gyem4zdXRncSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/JFTg9PBtHZz9hHRkBN/giphy.gif"
+          alt=""
+        />
+      </div>
+    <% else %>
+      <img src={@prediction.sticker_output} alt={@prediction.prompt} />
+    <% end %>
 
     <div class="inline-flex items-center mx-auto">
       <%!-- Thumbs up --%>
