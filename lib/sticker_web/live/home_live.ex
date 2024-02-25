@@ -63,7 +63,10 @@ defmodule StickerWeb.HomeLive do
 
     send(self(), {:kick_off, prediction})
 
-    {:noreply, socket |> stream_insert(:my_predictions, prediction, at: 0)}
+    {:noreply,
+     socket
+     |> assign(form: to_form(%{"prompt" => ""}))
+     |> stream_insert(:my_predictions, prediction, at: 0)}
   end
 
   def handle_info({:kick_off, prediction}, socket) do

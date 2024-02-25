@@ -6,13 +6,27 @@
     <img src={@prediction.sticker_output} alt={@prediction.prompt} />
 
     <div class="inline-flex items-center mx-auto">
+      <%!-- Thumbs up --%>
+      <button
+        :if={not @given_feedback}
+        id={"thumbs-down-#{@prediction.id}"}
+        phx-click="thumbs-down"
+        phx-value-id={@prediction.id}
+        class="rounded-full group text-center rotate-12 hover:rotate-6"
+      >
+        <img title="thumbs up!" alt="thumbs up" class="h-24" src="/images/thumbs-up.png" alt="" />
+        <span class="text-sm invisible group-hover:visible text-teal-600 font-bold">
+          thumbs up
+        </span>
+      </button>
+
       <%!-- New sticker --%>
       <.link
         id="copy"
         class="rounded-full group text-center rotate-12 hover:rotate-6"
         navigate={~p"/?prompt=#{@prediction.prompt}"}
       >
-        <img title="new" alt="new" class="h-24" src="/images/new.png" alt="" loading="lazy" />
+        <img title="new" alt="new" class="h-28" src="/images/new.png" alt="" loading="lazy" />
         <span class="text-sm text-purple-500 font-bold invisible group-hover:visible">new</span>
       </.link>
 
@@ -47,20 +61,6 @@
           save
         </span>
       </a>
-
-      <%!-- Thumbs up --%>
-      <button
-        :if={not @given_feedback}
-        id={"thumbs-down-#{@prediction.id}"}
-        phx-click="thumbs-down"
-        phx-value-id={@prediction.id}
-        class="rounded-full group text-center rotate-12 hover:rotate-6"
-      >
-        <img title="thumbs up!" alt="thumbs up" class="h-24" src="/images/thumbs-up.png" alt="" />
-        <span class="text-sm invisible group-hover:visible text-teal-600 font-bold">
-          thumbs up
-        </span>
-      </button>
     </div>
   </div>
 </div>
