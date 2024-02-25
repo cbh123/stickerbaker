@@ -15,7 +15,7 @@ defmodule StickerWeb.ShowLive do
      ), temporary_assigns: [{SEO.key(), nil}]}
   end
 
-  def handle_params(params, _url, socket) do
+  def handle_params(_params, _url, socket) do
     {:noreply,
      SEO.assign(socket, %{
        title: "I made an AI sticker of #{socket.assigns.prediction.prompt}",

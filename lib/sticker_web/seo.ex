@@ -18,7 +18,7 @@ defmodule StickerWeb.SEO do
         summary_card_image: "/og.webp"
       )
 
-  def site_config(conn) do
+  def site_config(_conn) do
     SEO.Site.build(
       default_title: "StickerBaker",
       description: "Bake stickers with AI",

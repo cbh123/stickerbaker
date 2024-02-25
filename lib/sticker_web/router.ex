@@ -12,6 +12,7 @@ defmodule StickerWeb.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+    plug :fetch_session
   end
 
   scope "/", StickerWeb do
@@ -26,7 +27,11 @@ defmodule StickerWeb.Router do
   # Other scopes may use custom stacks.
   scope "/api", StickerWeb do
     pipe_through :api
-    post "/slack-command", SlackController, :command
+    post "/session", SessionController, :set
+  end
+
+  scope "/webhooks", StickerWeb do
+    post "/replicate", ReplicateWebhookController, :handle
   end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development

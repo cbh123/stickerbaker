@@ -17,6 +17,9 @@ defmodule Sticker.Predictions.Prediction do
     field :image_embedding, :binary
     field :embedding_model, :string
 
+    field :status, Ecto.Enum,
+      values: [:starting, :processing, :succeeded, :failed, :canceled, :moderation_succeeded]
+
     timestamps()
   end
 
@@ -36,7 +39,8 @@ defmodule Sticker.Predictions.Prediction do
       :moderator,
       :embedding,
       :image_embedding,
-      :embedding_model
+      :embedding_model,
+      :status
     ])
     |> validate_required([:prompt])
   end

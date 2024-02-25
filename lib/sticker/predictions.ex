@@ -8,6 +8,17 @@ defmodule Sticker.Predictions do
 
   alias Sticker.Predictions.Prediction
 
+  def list_loading_predictions(user_id) do
+    from(p in Prediction,
+      where:
+        p.local_user_id == ^user_id and
+          (p.status != :succeeded and
+             (p.moderation_score < 9 and p.status == :moderation_succeeded)),
+      order_by: [desc: p.inserted_at]
+    )
+    |> Repo.all()
+  end
+
   def get_predictions(ids) do
     from(p in Prediction, where: p.id in ^ids and not is_nil(p.sticker_output)) |> Repo.all()
   end

@@ -59,29 +59,6 @@ defmodule StickerWeb.Components do
     """
   end
 
-  defp feedback(assigns) do
-    ~H"""
-    <div class={"flex justify-between items-center feedback-#{@prediction.id}"}>
-      <button
-        id={"thumbs-up-#{@prediction.id}"}
-        phx-click={JS.hide(to: ".feedback-#{@prediction.id}") |> JS.push("thumbs-up")}
-        phx-value-id={@prediction.id}
-        class="rounded-full bg-gray-50 mt-2"
-      >
-        <img class="h-12" src="/images/thumbs-up.png" alt="" />
-      </button>
-      <button
-        id={"thumbs-down-#{@prediction.id}"}
-        phx-value-id={@prediction.id}
-        phx-click={JS.hide(to: ".feedback-#{@prediction.id}") |> JS.push("thumbs-down")}
-        class="rounded-full  mt-2 rotate-180"
-      >
-        <img class="h-12" src="/images/thumbs-up.png" alt="" />
-      </button>
-    </div>
-    """
-  end
-
   defp humanize(name) do
     Sticker.Utils.humanize(name)
   end

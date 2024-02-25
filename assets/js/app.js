@@ -37,6 +37,9 @@ Hooks.AssignUserId = {
       localStorage.setItem("userId", userId);
     }
     this.pushEvent("assign-user-id", { userId: userId });
+    fetch(`/api/session?local_user_id=${encodeURIComponent(userId)}`, {
+      method: "post",
+    });
   },
 };
 
