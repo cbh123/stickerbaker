@@ -202,7 +202,7 @@ defmodule StickerWeb.CoreComponents do
     <.flash
       id="disconnected"
       kind={:error}
-      title="We can't find the internet"
+      title="Refreshing..."
       close={false}
       autoshow={false}
       phx-disconnected={show("#disconnected")}
