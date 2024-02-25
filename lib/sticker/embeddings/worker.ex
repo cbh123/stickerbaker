@@ -24,7 +24,7 @@ defmodule Sticker.Embeddings.Worker do
 
   defp should_generate_text_embedding?() do
     case Application.get_env(:sticker, :env) do
-      :prod -> Predictions.count_predictions_with_text_embeddings() < 100_000
+      :prod -> Predictions.count_predictions_with_text_embeddings() < 1000
       :dev -> Predictions.count_predictions_with_text_embeddings() < 50
       _ -> false
     end
@@ -32,7 +32,7 @@ defmodule Sticker.Embeddings.Worker do
 
   defp should_generate_image_embedding?() do
     case Application.get_env(:sticker, :env) do
-      :prod -> Predictions.count_predictions_with_image_embeddings() < 100_000
+      :prod -> Predictions.count_predictions_with_image_embeddings() < 1000
       :dev -> Predictions.count_predictions_with_image_embeddings() < 25
       _ -> false
     end

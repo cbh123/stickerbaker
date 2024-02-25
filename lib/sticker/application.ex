@@ -17,10 +17,9 @@ defmodule Sticker.Application do
       # Start Finch
       {Finch, name: Sticker.Finch},
       # Start the Endpoint (http/https)
-      StickerWeb.Endpoint
-      # {Sticker.PredictionsManager, []}
+      StickerWeb.Endpoint,
       # {Sticker.Embeddings.Index, []},
-      # Sticker.Embeddings.Worker
+      Sticker.Embeddings.Worker
       # Start a worker by calling: Sticker.Worker.start_link(arg)
       # {Sticker.Worker, arg}
     ]
