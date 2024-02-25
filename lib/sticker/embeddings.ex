@@ -68,7 +68,7 @@ defmodule Sticker.Embeddings do
       if via_images do
         Sticker.Embeddings.Index.search_images(embedding, num_results)
       else
-        Sticker.Embeddings.Index.search(embedding, num_results)
+        Sticker.Embeddings.Index.search_text(embedding, num_results)
       end
 
     ids = Nx.to_flat_list(labels)
