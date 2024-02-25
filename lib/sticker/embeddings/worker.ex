@@ -7,8 +7,6 @@ defmodule Sticker.Embeddings.Worker do
   require Logger
   use GenServer
 
-  @embeddings_model "daanelson/imagebind:0383f62e173dc821ec52663ed22a076d9c970549c209666ac3db181618b7a304"
-
   def start_link(_opts) do
     GenServer.start_link(__MODULE__, %{})
   end
@@ -43,13 +41,12 @@ defmodule Sticker.Embeddings.Worker do
 
     embedding =
       prediction.prompt
-      |> Embeddings.clean()
-      |> Embeddings.create(@embeddings_model)
+      |> Embeddings.create(Sticker.Embeddings.imagebind_model())
 
     {:ok, prediction} =
       Predictions.update_prediction(prediction, %{
         embedding: embedding,
-        embedding_model: @embeddings_model
+        embedding_model: Sticker.Embeddings.imagebind_model()
       })
 
     prediction
@@ -64,8 +61,8 @@ defmodule Sticker.Embeddings.Worker do
     Logger.info("Creating image embeddings for #{prediction.id}")
 
     image_embedding =
-      prediction.no_bg_output
-      |> Embeddings.create_image(@embeddings_model)
+      prediction.sticker_output
+      |> Embeddings.create_image(Sticker.Embeddings.imagebind_model())
 
     {:ok, prediction} =
       Predictions.update_prediction(prediction, %{

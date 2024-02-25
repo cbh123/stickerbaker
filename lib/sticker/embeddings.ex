@@ -8,6 +8,9 @@ defmodule Sticker.Embeddings do
   """
   require Logger
 
+  def imagebind_model,
+    do: "daanelson/imagebind:0383f62e173dc821ec52663ed22a076d9c970549c209666ac3db181618b7a304"
+
   def create("", _), do: nil
 
   def create(text, embeddings_model) do
@@ -32,12 +35,6 @@ defmodule Sticker.Embeddings do
     |> Nx.to_binary()
   end
 
-  def clean(text) do
-    text
-    |> String.replace("A TOK sticker of a", "")
-    |> String.trim()
-  end
-
   defp binary_to_data_uri(binary, mime_type) do
     base64 = Base.encode64(binary)
     "data:#{mime_type};base64,#{base64}"
@@ -51,7 +48,7 @@ defmodule Sticker.Embeddings do
         embedding =
           create(
             search_word,
-            "daanelson/imagebind:0383f62e173dc821ec52663ed22a076d9c970549c209666ac3db181618b7a304"
+            imagebind_model()
           )
 
         {:ok, _query} = Sticker.Search.create_query(%{content: search_word, embedding: embedding})
