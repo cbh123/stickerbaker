@@ -10,7 +10,7 @@
       <button
         :if={not @given_feedback}
         id={"thumbs-down-#{@prediction.id}"}
-        phx-click="thumbs-down"
+        phx-click="thumbs-up"
         phx-value-id={@prediction.id}
         class="rounded-full group text-center rotate-12 hover:rotate-6"
       >
