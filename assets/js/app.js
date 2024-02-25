@@ -76,7 +76,7 @@ window.addEventListener("phx:copy", async (event) => {
   if (navigator.share) {
     try {
       await navigator.share({
-        title: "Check out my AI generated sticker", // Optional: Title of the content to share
+        title: "Check out this AI sticker I made", // Optional: Title of the content to share
         url: urlToShare, // The URL you want to share
       });
       console.log("Content shared successfully");

@@ -19,7 +19,7 @@
       <%!-- Thumbs up --%>
       <button
         :if={not @given_feedback}
-        id={"thumbs-down-#{@prediction.id}"}
+        id={"thumbs-up-#{@prediction.id}"}
         phx-click="thumbs-up"
         phx-value-id={@prediction.id}
         class="rounded-full group text-center rotate-12 hover:rotate-6"
@@ -32,7 +32,7 @@
 
       <%!-- New sticker --%>
       <.link
-        id="copy"
+        id="new"
         class="rounded-full group text-center rotate-12 hover:rotate-6"
         navigate={~p"/?prompt=#{@prediction.prompt}"}
       >
