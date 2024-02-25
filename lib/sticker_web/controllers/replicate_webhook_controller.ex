@@ -20,12 +20,10 @@ defmodule StickerWeb.ReplicateWebhookController do
           "model" => "fofr/prompt-classifier"
         }
       ) do
-    rating = output |> Enum.join() |> String.trim()
+    rating = output |> Enum.join() |> String.trim() |> String.to_float() |> round()
 
     case status do
       "succeeded" ->
-        rating = String.to_integer(rating)
-
         {:ok, prediction} =
           prediction_id
           |> Predictions.get_prediction!()
