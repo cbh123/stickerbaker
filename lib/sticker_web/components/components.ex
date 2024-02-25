@@ -69,7 +69,7 @@ defmodule StickerWeb.Components do
         <span class="block truncate text-sm font-medium text-gray-900">
           <%= @prediction.prompt %>
         </span>
-        <span :if={@prediction.score != 0} class={"inline-flex text-sm font-bold #{text_color}"}>
+        <span :if={@prediction.score > 0} class={"inline-flex text-sm font-bold #{text_color}"}>
           <%= @prediction.score %>
         </span>
       </div>
