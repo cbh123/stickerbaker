@@ -61,9 +61,14 @@ defmodule StickerWeb.HomeLive do
         local_user_id: user_id
       })
 
-    Predictions.moderate(prompt, user_id, prediction.id)
+    send(self(), {:kick_off, prediction})
 
     {:noreply, socket |> stream_insert(:my_predictions, prediction, at: 0)}
+  end
+
+  def handle_info({:kick_off, prediction}, socket) do
+    Predictions.moderate(prediction.prompt, prediction.local_user_id, prediction.id)
+    {:noreply, socket}
   end
 
   def handle_info({:moderation_complete, prediction}, socket) do

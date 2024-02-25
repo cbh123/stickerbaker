@@ -8,11 +8,13 @@ defmodule Sticker.Predictions do
 
   alias Sticker.Predictions.Prediction
 
+  @doc """
+  Moderates a prediction.
+  The logic in replicate_webhook_controller.ex handles
+  the webhook. Once the moderation is complete, the webhook controller automatically
+  called gen_image.
+  """
   def moderate(prompt, user_id, prediction_id) do
-    IO.puts(
-      "#{Sticker.Utils.get_host()}/webhooks/replicate?user_id=#{user_id}&prediction_id=#{prediction_id}"
-    )
-
     "fofr/prompt-classifier"
     |> Replicate.Models.get!()
     |> Replicate.Models.get_latest_version!()

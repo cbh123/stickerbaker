@@ -20,7 +20,7 @@ defmodule StickerWeb.ReplicateWebhookController do
           "model" => "fofr/prompt-classifier"
         }
       ) do
-    rating = output |> Enum.join() |> String.trim() |> String.to_float() |> round()
+    rating = Sticker.Utils.parse_prompt_classifier_output(output)
 
     case status do
       "succeeded" ->

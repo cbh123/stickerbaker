@@ -1,6 +1,15 @@
 defmodule Sticker.Utils do
   require Logger
 
+  def parse_prompt_classifier_output(output) do
+    output
+    |> Enum.join()
+    |> String.trim()
+    |> Float.parse()
+    |> elem(0)
+    |> round()
+  end
+
   def save_r2(file_name, image_url) do
     image_binary = Req.get!(image_url).body
     bucket = System.fetch_env!("BUCKET_NAME")
