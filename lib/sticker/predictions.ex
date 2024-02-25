@@ -46,6 +46,8 @@ defmodule Sticker.Predictions do
     )
   end
 
+  def list_loading_predictions(nil), do: []
+
   def list_loading_predictions(user_id) do
     from(p in Prediction,
       where:
