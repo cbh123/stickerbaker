@@ -8,6 +8,40 @@ defmodule Sticker.Predictions do
 
   alias Sticker.Predictions.Prediction
 
+  def moderate(prompt, user_id, prediction_id) do
+    "fofr/prompt-classifier"
+    |> Replicate.Models.get!()
+    |> Replicate.Models.get_latest_version!()
+    |> Replicate.Predictions.create(
+      %{
+        prompt: "[PROMPT] #{prompt} [/PROMPT] [SAFETY_RANKING]",
+        max_new_tokens: 128,
+        temperature: 0.2,
+        top_p: 0.9,
+        top_k: 50,
+        stop_sequences: "[/SAFETY_RANKING]"
+      },
+      "#{Sticker.Utils.get_host()}/webhooks/replicate?user_id=#{user_id}&prediction_id=#{prediction_id}"
+    )
+  end
+
+  def gen_image(prompt, user_id, prediction_id) do
+    "fofr/sticker-maker"
+    |> Replicate.Models.get!()
+    |> Replicate.Models.get_latest_version!()
+    |> Replicate.Predictions.create(
+      %{
+        prompt: prompt,
+        width: 512,
+        height: 512,
+        num_inference_steps: 20,
+        negative_prompt: "racist, xenophobic, antisemitic, islamophobic, bigoted",
+        upscale: false
+      },
+      "#{Sticker.Utils.get_host()}/webhooks/replicate?user_id=#{user_id}&prediction_id=#{prediction_id}"
+    )
+  end
+
   def list_loading_predictions(user_id) do
     from(p in Prediction,
       where:

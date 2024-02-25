@@ -61,7 +61,7 @@ defmodule StickerWeb.HomeLive do
         local_user_id: user_id
       })
 
-    moderate(prompt, user_id, prediction.id)
+    Predictions.moderate(prompt, user_id, prediction.id)
 
     {:noreply, socket |> stream_insert(:my_predictions, prediction, at: 0)}
   end
@@ -80,52 +80,27 @@ defmodule StickerWeb.HomeLive do
   end
 
   def handle_info({:prediction_started, prediction}, socket) do
-    IO.inspect("prediction_started", label: "prediction_started")
-
     {:noreply,
      socket
      |> stream_insert(:my_predictions, prediction, at: 0)}
   end
 
   def handle_info({:prediction_loading, prediction}, socket) do
-    IO.inspect("prediction_loading", label: "prediction_loading")
-
     {:noreply,
      socket
      |> stream_insert(:my_predictions, prediction, at: 0)}
   end
 
   def handle_info({:prediction_failed, _prediction}, socket) do
-    IO.inspect("prediction_failed", label: "prediction_failed")
-
     {:noreply,
      socket
      |> put_flash(:error, "Uh oh, image generation failed. Likely NSFW input. Try again!")}
   end
 
   def handle_info({:prediction_completed, prediction}, socket) do
-    IO.inspect("prediction_completed", label: "prediction_completed")
-
     {:noreply,
      socket
      |> stream_insert(:my_predictions, prediction)
      |> put_flash(:info, "Sticker generated! Click it to download.")}
-  end
-
-  defp moderate(prompt, user_id, prediction_id) do
-    "fofr/prompt-classifier"
-    |> Replicate.Models.get!()
-    |> Replicate.Models.get_latest_version!()
-    |> Replicate.Predictions.create(
-      %{
-        prompt: "[PROMPT] #{prompt} [/PROMPT] [SAFETY_RANKING]",
-        max_new_tokens: 128,
-        temperature: 0.2,
-        top_p: 0.9,
-        top_k: 50,
-        stop_sequences: "[/SAFETY_RANKING]"
-      },
-      "https://db8d-2001-5a8-4288-b400-65d8-9a7e-4a09-ae40.ngrok-free.app/webhooks/replicate?user_id=#{user_id}&prediction_id=#{prediction_id}"
-    )
   end
 end
