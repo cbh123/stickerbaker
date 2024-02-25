@@ -69,8 +69,7 @@ let liveSocket = new LiveSocket("/live", Socket, {
 window.addEventListener("phx:copy", async (event) => {
   let button = event.detail.dispatcher;
   // Assuming you want to share the URL stored in a data attribute named 'data-url'
-  let urlToShare =
-    event.target.getAttribute("data-url") || event.target.dataset.url;
+  let urlToShare = event.target.getAttribute("data-url");
 
   // Check if the Web Share API is available
   if (navigator.share) {
