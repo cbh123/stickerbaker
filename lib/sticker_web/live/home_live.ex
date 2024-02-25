@@ -52,7 +52,7 @@ defmodule StickerWeb.HomeLive do
     {:noreply, socket |> assign(local_user_id: user_id)}
   end
 
-  def handle_event("save", %{"prompt" => prompt, "submit" => "generate"}, socket) do
+  def handle_event("save", %{"prompt" => prompt}, socket) do
     user_id = socket.assigns.local_user_id
 
     {:ok, prediction} =

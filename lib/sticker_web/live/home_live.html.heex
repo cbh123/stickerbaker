@@ -19,15 +19,27 @@
     phx-change="validate"
     phx-submit="save"
   >
-    <div class="flex items-center w-full ">
+    <div class="flex items-center w-full justify-center">
       <.input
         field={@form[:prompt]}
         type="text"
         required
         placeholder="What is your sticker?"
-        class=""
+        class="px-3 py-2 text-3xl"
       />
-      <.button name="submit" value="generate" phx-disable-with="Saving..." class="self-end ml-2">
+      <button class="inline-flex items-center justify-center ml-2 border rounded-lg bg-white hover:bg-orange-100 text-zinc-900 hover:text-orange-700 px-4 py-2.5 font-bold self-end">
+        <img class="h-7" src="/images/oven.png" alt="oven" />
+        <span class="hidden sm:inline-block">
+          Bake
+        </span>
+      </button>
+
+      <.button
+        name="submit"
+        value="generate"
+        phx-disable-with="Saving..."
+        class="hidden self-end ml-2"
+      >
         Bake
       </.button>
     </div>
