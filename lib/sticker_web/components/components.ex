@@ -39,12 +39,12 @@ defmodule StickerWeb.Components do
         <% else %>
           <button
             id={"prediction-#{@id}-btn"}
-            phx-value-name={@prediction.prompt |> humanize()}
-            phx-value-image={@prediction.no_bg_output || @prediction.sticker_output}
+            phx-value-name={@prediction.prompt}
+            phx-value-image={@prediction.sticker_output}
             type="button"
           >
             <img
-              src={@prediction.no_bg_output || @prediction.sticker_output}
+              src={@prediction.sticker_output}
               alt={@prediction.prompt}
               class="pointer-events-none object-cover group-hover:opacity-75"
             />
@@ -57,9 +57,5 @@ defmodule StickerWeb.Components do
       </span>
     </.link>
     """
-  end
-
-  defp humanize(name) do
-    Sticker.Utils.humanize(name)
   end
 end

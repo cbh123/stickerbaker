@@ -17,7 +17,7 @@ defmodule Sticker.Utils do
     case StickerWeb.Endpoint.host() do
       "localhost" ->
         Logger.warning("WE ARE IN LOCALHOST — IS NGROK SETUP?")
-        System.get_env("NGROK_URL")
+        System.fetch_env!("NGROK_URL")
 
       url ->
         url

@@ -9,6 +9,10 @@ defmodule Sticker.Predictions do
   alias Sticker.Predictions.Prediction
 
   def moderate(prompt, user_id, prediction_id) do
+    IO.puts(
+      "#{Sticker.Utils.get_host()}/webhooks/replicate?user_id=#{user_id}&prediction_id=#{prediction_id}"
+    )
+
     "fofr/prompt-classifier"
     |> Replicate.Models.get!()
     |> Replicate.Models.get_latest_version!()
