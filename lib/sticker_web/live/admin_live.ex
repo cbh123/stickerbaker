@@ -25,7 +25,7 @@ defmodule StickerWeb.AdminLive do
     next_page = assigns.page + 1
 
     latest_predictions =
-      Predictions.list_latest_safe_predictions(assigns.page, socket.assigns.per_page)
+      Predictions.list_latest_predictions(assigns.page, socket.assigns.per_page)
 
     {:noreply,
      socket
