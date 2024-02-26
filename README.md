@@ -1,4 +1,7 @@
 # StickerBaker
+
+Check out the launch tweet: https://x.com/charliebholtz/status/1762232726361633018?s=20
+
 <img width="1263" alt="Screenshot 2024-02-26 at 1 16 36 PM" src="https://github.com/cbh123/stickerbaker/assets/14149230/92e698f5-2c22-48e2-8f40-b037e9b5c506">
 
 
