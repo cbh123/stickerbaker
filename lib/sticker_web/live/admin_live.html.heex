@@ -12,7 +12,7 @@
     phx-update="stream"
     phx-viewport-bottom="load-more"
     role="list"
-    class="grid grid-cols-6 mb-24 mt-6 gap-x-4 gap-y-8 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8"
+    class="grid grid-cols-6 mb-24 mt-6 gap-x-4 gap-y-8 sm:gap-x-6 xl:gap-x-8"
   >
     <li :for={{id, prediction} <- @streams.latest_predictions} id={id} class="relative flex-none">
       <button
@@ -26,6 +26,9 @@
           alt={prediction.prompt}
           class="pointer-events-none object-cover group-hover:opacity-75"
         />
+        <p class="">
+          <%= prediction.prompt %>
+        </p>
       </button>
       <%= if prediction.is_featured do %>
         <button
