@@ -15,6 +15,23 @@ defmodule StickerWeb.Router do
     plug :fetch_session
   end
 
+  pipeline :admins_only do
+    plug :admin_basic_auth
+  end
+
+  defp admin_basic_auth(conn, _opts) do
+    username = System.fetch_env!("ADMIN_USERNAME")
+    password = System.fetch_env!("ADMIN_PASSWORD")
+
+    Plug.BasicAuth.basic_auth(conn, username: username, password: password)
+  end
+
+  scope "/admin", StickerWeb do
+    pipe_through [:browser, :admins_only]
+
+    live "/", AdminLive, :index
+  end
+
   scope "/", StickerWeb do
     pipe_through :browser
 

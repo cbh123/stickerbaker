@@ -1,0 +1,52 @@
+<div id="home" phx-hook="AssignUserId">
+  <div class="mb-20 mt-12 w-full text-center">
+    <div class="mb-3 inline-flex items-center">
+      <img src="/images/oven.png" class="h-16" />
+      <p class="font-bold text-3xl">ADMIN BAKER</p>
+    </div>
+  </div>
+
+  <.header class="mt-12">Latest</.header>
+  <ul
+    id="latest-predictions"
+    phx-update="stream"
+    phx-viewport-bottom="load-more"
+    role="list"
+    class="grid grid-cols-6 mb-24 mt-6 gap-x-4 gap-y-8 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8"
+  >
+    <li :for={{id, prediction} <- @streams.latest_predictions} id={id} class="relative flex-none">
+      <button
+        id={"prediction-#{id}-btn"}
+        phx-value-id={prediction.id}
+        phx-click="toggle-allow"
+        type="button"
+      >
+        <img
+          src={prediction.sticker_output}
+          alt={prediction.prompt}
+          class="pointer-events-none object-cover group-hover:opacity-75"
+        />
+      </button>
+      <%= if prediction.is_featured do %>
+        <button
+          phx-value-id={prediction.id}
+          phx-click="unallow"
+          class="bg-red-50 border px-2 py-2"
+        >
+          UN-ALLOW
+        </button>
+      <% else %>
+        <button
+          phx-value-id={prediction.id}
+          phx-click="allow"
+          class="bg-green-50 border px-2 py-2"
+        >
+          ALLOW
+        </button>
+      <% end %>
+    </li>
+  </ul>
+  <p :if={@page < @max_pages} class="animate-pulse text-xl text-center italic my-24">
+    <img class="h-32 mx-auto" src="/images/loading.png" alt="loading" /> Loading...
+  </p>
+</div>
