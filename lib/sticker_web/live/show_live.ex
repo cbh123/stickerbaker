@@ -28,6 +28,22 @@ defmodule StickerWeb.ShowLive do
     {:noreply, socket |> push_redirect(to: ~p"/?prompt=#{prompt}")}
   end
 
+  def handle_event("flag", %{"id" => id}, socket) do
+    prediction = Predictions.get_prediction!(id)
+
+    {:ok, _prediction} =
+      Predictions.update_prediction(prediction, %{
+        flag: true
+      })
+
+    {:noreply,
+     socket
+     |> put_flash(
+       :info,
+       "Your wish is granted. This will hide this prediction from the home page."
+     )}
+  end
+
   def handle_event("thumbs-up", %{"id" => id}, socket) do
     prediction = Predictions.get_prediction!(id)
 

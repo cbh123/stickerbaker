@@ -2,6 +2,10 @@
   <h3 class="text-center text-3xl font-bold mb-4">
     &ldquo;<%= @prediction.prompt %>&rdquo;
   </h3>
+
+  <div class="text-center">
+    <.outline_button phx-value-id={@prediction.id} phx-click="flag">⛳️ Report</.outline_button>
+  </div>
   <div class="text-center">
     <%= if is_nil(@prediction.sticker_output) do %>
       <div class="flex items-center justify-center relative animate-pulse rounded-xl">
