@@ -45,7 +45,7 @@ defmodule StickerWeb.Components do
       </span>
 
       <div class={"group aspect-h-10 aspect-w-10 block overflow-hidden rounded-lg #{bg} focus-within:ring-2 focus-within:ring-black-500 focus-within:ring-offset-2 focus-within:ring-offset-gray-100"}>
-        <%= if is_nil(@prediction.sticker_output) do %>
+        <%= if is_nil(@prediction.sticker_output) and is_nil(@prediction.no_bg_output) do %>
           <div class="flex items-center justify-center h-48">
             <div role="status">
               <svg
