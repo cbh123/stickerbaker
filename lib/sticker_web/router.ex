@@ -28,8 +28,10 @@ defmodule StickerWeb.Router do
 
   scope "/admin", StickerWeb do
     pipe_through [:browser, :admins_only]
+    import Phoenix.LiveDashboard.Router
 
     live "/", AdminLive, :index
+    live_dashboard "/dashboard", metrics: StickerWeb.Telemetry
   end
 
   scope "/", StickerWeb do
@@ -63,7 +65,6 @@ defmodule StickerWeb.Router do
     scope "/dev" do
       pipe_through :browser
 
-      live_dashboard "/dashboard", metrics: StickerWeb.Telemetry
       forward "/mailbox", Plug.Swoosh.MailboxPreview
     end
   end
