@@ -2,6 +2,8 @@ defmodule StickerWeb.ReplicateWebhookController do
   use StickerWeb, :controller
   alias Sticker.Predictions
 
+  @annoying_users ["lt3hjkan30umvl86oz2"]
+
   def handle(conn, params) do
     handle_webhook(conn, params)
 
@@ -22,29 +24,33 @@ defmodule StickerWeb.ReplicateWebhookController do
       ) do
     rating = Sticker.Utils.parse_prompt_classifier_output(output)
 
-    case status do
-      "succeeded" ->
-        {:ok, prediction} =
-          prediction_id
-          |> Predictions.get_prediction!()
-          |> Predictions.update_prediction(%{
-            moderator: "fofr/prompt-classifier",
-            moderation_score: rating,
-            status: :moderation_succeeded
-          })
+    if user_id in @annoying_users do
+      broadcast(user_id, {:moderation_failed, "Something went wrong...try again?"})
+    else
+      case status do
+        "succeeded" ->
+          {:ok, prediction} =
+            prediction_id
+            |> Predictions.get_prediction!()
+            |> Predictions.update_prediction(%{
+              moderator: "fofr/prompt-classifier",
+              moderation_score: rating,
+              status: :moderation_succeeded
+            })
 
-        broadcast(user_id, {:moderation_complete, prediction})
+          broadcast(user_id, {:moderation_complete, prediction})
 
-        # automatically kick off gen image step
-        if rating < 9 do
-          Predictions.gen_image(prediction.prompt, user_id, prediction.id)
-        end
+          # automatically kick off gen image step
+          if rating < 9 do
+            Predictions.gen_image(prediction.prompt, user_id, prediction.id)
+          end
 
-      "failed" ->
-        broadcast(user_id, {:moderation_failed, "Something went wrong...try again?"})
+        "failed" ->
+          broadcast(user_id, {:moderation_failed, "Something went wrong...try again?"})
 
-      status ->
-        IO.inspect("status is... #{status}")
+        status ->
+          IO.inspect("status is... #{status}")
+      end
     end
 
     conn
