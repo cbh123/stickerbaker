@@ -1,6 +1,6 @@
 # StickerBaker
 
-<blockquote class="twitter-tweet" data-media-max-width="560"><p lang="en" dir="ltr">Announcing StickerBaker!<br><br>Make stickers with AI. Powered by <a href="https://twitter.com/replicate?ref_src=twsrc%5Etfw">@replicate</a> and <a href="https://twitter.com/flydotio?ref_src=twsrc%5Etfw">@flydotio</a>, and 100% open-source.<a href="https://t.co/8vucCsHtAd">https://t.co/8vucCsHtAd</a> <a href="https://t.co/tBhDyGrOx0">pic.twitter.com/tBhDyGrOx0</a></p>&mdash; Charlie Holtz (@charliebholtz) <a href="https://twitter.com/charliebholtz/status/1762232726361633018?ref_src=twsrc%5Etfw">February 26, 2024</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<blockquote class="twitter-tweet" data-media-max-width="560"><p lang="en" dir="ltr">Announcing StickerBaker!<br><br>Make stickers with AI. Powered by <a href="https://twitter.com/replicate?ref_src=twsrc%5Etfw">@replicate</a> and <a href="https://twitter.com/flydotio?ref_src=twsrc%5Etfw">@flydotio</a>, and 100% open-source.<a href="https://t.co/8vucCsHtAd">https://t.co/8vucCsHtAd</a> <a href="https://t.co/tBhDyGrOx0">pic.twitter.com/tBhDyGrOx0</a></p>&mdash; Charlie Holtz (@charliebholtz) <a href="https://twitter.com/charliebholtz/status/1762232726361633018?ref_src=twsrc%5Etfw">February 26, 2024</a></blockquote>
 
 ## How it works
 
