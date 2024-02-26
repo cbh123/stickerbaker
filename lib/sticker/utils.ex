@@ -6,8 +6,10 @@ defmodule Sticker.Utils do
     |> Enum.join()
     |> String.trim()
     |> Float.parse()
-    |> elem(0)
-    |> round()
+    |> case do
+      {float, _str} -> float |> round()
+      :error -> 10
+    end
   end
 
   def save_r2(file_name, image_url) do
