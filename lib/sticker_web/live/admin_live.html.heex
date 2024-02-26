@@ -33,7 +33,7 @@
       <%= if prediction.is_featured do %>
         <button
           phx-value-id={prediction.id}
-          phx-click="unallow"
+          phx-click="toggle-allow"
           class="bg-red-50 border px-2 py-2"
         >
           UN-ALLOW
@@ -41,7 +41,7 @@
       <% else %>
         <button
           phx-value-id={prediction.id}
-          phx-click="allow"
+          phx-click="toggle-allow"
           class="bg-green-50 border px-2 py-2"
         >
           ALLOW
