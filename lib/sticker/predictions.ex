@@ -85,7 +85,7 @@ defmodule Sticker.Predictions do
       order_by: fragment("RANDOM()"),
       limit: 1
     )
-    |> Repo.one!()
+    |> Repo.one()
   end
 
   def get_random_prediction_without_image_embeddings() do
@@ -94,7 +94,7 @@ defmodule Sticker.Predictions do
       order_by: fragment("RANDOM()"),
       limit: 1
     )
-    |> Repo.one!()
+    |> Repo.one()
   end
 
   @doc """
