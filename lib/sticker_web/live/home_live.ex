@@ -11,10 +11,6 @@ defmodule StickerWeb.HomeLive do
     loading_predictions =
       Predictions.list_loading_predictions(session["local_user_id"]) |> IO.inspect(label: "hi")
 
-    if connected?(socket) do
-      Phoenix.PubSub.subscribe(Sticker.PubSub, "prediction-firehose")
-    end
-
     {:ok,
      socket
      |> assign(form: to_form(%{"prompt" => ""}))
@@ -71,10 +67,6 @@ defmodule StickerWeb.HomeLive do
      socket
      |> assign(form: to_form(%{"prompt" => ""}))
      |> stream_insert(:my_predictions, prediction, at: 0)}
-  end
-
-  def handle_info({:new_prediction, prediction}, socket) do
-    {:noreply, socket |> stream_insert(:latest_predictions, prediction, at: 0)}
   end
 
   def handle_info({:kick_off, prediction}, socket) do
