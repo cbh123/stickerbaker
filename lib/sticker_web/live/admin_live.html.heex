@@ -20,7 +20,9 @@
         phx-value-id={prediction.id}
         phx-click="toggle-allow"
         type="button"
+        class="relative"
       >
+        <p :if={!prediction.is_featured} class="text-5xl absolute inline-flex text-red-500">X</p>
         <img
           src={prediction.sticker_output}
           alt={prediction.prompt}
