@@ -86,6 +86,12 @@ defmodule StickerWeb.ReplicateWebhookController do
 
         broadcast(user_id, {:prediction_completed, prediction})
 
+        Phoenix.PubSub.broadcast(
+          Sticker.PubSub,
+          "prediction-firehose",
+          {:new_prediction, prediction}
+        )
+
       "failed" ->
         {:ok, prediction} =
           Predictions.update_prediction(prediction, %{uuid: uuid, status: :failed})
