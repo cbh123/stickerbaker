@@ -1,8 +1,9 @@
-# Sticker Maker
+# StickerBaker
+![Uploading Screenshot 2024-02-26 at 1.16.05 PM.png…]()
 
 ## How it works
 
-It takes your prompt and generating a sticker using https://replicate.com/fofr/sticker-maker. Then, click to download and add to slack!
+Enter a prompt and generating a sticker using https://replicate.com/fofr/sticker-maker. Then, click to download and add to slack!
 
 ## Dev
 
