@@ -130,6 +130,15 @@ defmodule Sticker.Predictions do
     |> offset(^offset_by)
   end
 
+  def list_latest_predictions(page, per_page \\ 20) do
+    from(p in Prediction,
+      where: not is_nil(p.sticker_output) and p.moderation_score <= 5,
+      order_by: [desc: p.inserted_at]
+    )
+    |> paginate(page, per_page)
+    |> Repo.all()
+  end
+
   def list_latest_safe_predictions(page, per_page \\ 20) do
     from(p in Prediction,
       where: not is_nil(p.sticker_output) and p.moderation_score <= 5 and p.is_featured == true,
@@ -145,15 +154,6 @@ defmodule Sticker.Predictions do
       order_by: [desc: p.inserted_at]
     )
     |> Repo.aggregate(:count)
-  end
-
-  def list_latest_predictions(limit) do
-    Repo.all(
-      from p in Prediction,
-        where: not is_nil(p.sticker_output),
-        order_by: [desc: p.inserted_at],
-        limit: ^limit
-    )
   end
 
   def list_user_predictions(user_id) do

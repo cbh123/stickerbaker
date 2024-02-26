@@ -18,7 +18,7 @@ defmodule StickerWeb.AdminLive do
      |> assign(page: page)
      |> assign(per_page: per_page)
      |> assign(max_pages: max_pages)
-     |> stream(:latest_predictions, Predictions.list_latest_safe_predictions(page, per_page))}
+     |> stream(:latest_predictions, Predictions.list_latest_predictions(page, per_page))}
   end
 
   def handle_event("load-more", _, %{assigns: assigns} = socket) do
