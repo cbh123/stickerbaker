@@ -6,7 +6,7 @@ defmodule StickerWeb.AdminLive do
   def mount(_params, session, socket) do
     page = 0
     per_page = 20
-    max_pages = Predictions.number_safe_predictions() / per_page
+    max_pages = Predictions.number_predictions() / per_page
 
     if connected?(socket) do
       Phoenix.PubSub.subscribe(Sticker.PubSub, "prediction-firehose")

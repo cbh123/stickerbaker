@@ -148,6 +148,14 @@ defmodule Sticker.Predictions do
     |> Repo.all()
   end
 
+  def number_predictions() do
+    from(p in Prediction,
+      where: not is_nil(p.sticker_output) and p.moderation_score <= 5,
+      order_by: [desc: p.inserted_at]
+    )
+    |> Repo.aggregate(:count)
+  end
+
   def number_safe_predictions() do
     from(p in Prediction,
       where: not is_nil(p.sticker_output) and p.moderation_score <= 5 and p.is_featured == true,
