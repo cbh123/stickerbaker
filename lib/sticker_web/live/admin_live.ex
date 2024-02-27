@@ -20,6 +20,7 @@ defmodule StickerWeb.AdminLive do
      |> assign(page: page)
      |> assign(per_page: per_page)
      |> assign(max_pages: max_pages)
+     |> assign(number_predictions: Predictions.number_predictions())
      |> stream(:latest_predictions, list_latest_predictions_no_moderation(page, per_page))}
   end
 
