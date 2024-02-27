@@ -42,6 +42,12 @@ defmodule StickerWeb.AdminLive do
     {:ok, prediction} =
       Predictions.update_prediction(prediction, %{"is_featured" => !prediction.is_featured})
 
+    Phoenix.PubSub.broadcast(
+      Sticker.PubSub,
+      "safe-prediction-firehose",
+      {:new_prediction, prediction}
+    )
+
     {:noreply, socket |> stream_insert(:latest_predictions, prediction)}
   end
 
