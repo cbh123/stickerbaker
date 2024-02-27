@@ -5,7 +5,7 @@ defmodule Sticker.Autoplay do
   alias Phoenix.PubSub
 
   def start_link(_opts) do
-    GenServer.start_link(__MODULE__, %{activated: false}, name: __MODULE__)
+    GenServer.start_link(__MODULE__, %{activated: true}, name: __MODULE__)
   end
 
   def init(state) do
