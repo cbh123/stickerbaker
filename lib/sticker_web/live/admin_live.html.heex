@@ -15,13 +15,7 @@
     class="grid grid-cols-6 mb-24 mt-6 gap-x-4 gap-y-8 sm:gap-x-6 xl:gap-x-8"
   >
     <li :for={{id, prediction} <- @streams.latest_predictions} id={id} class="relative flex-none">
-      <button
-        id={"prediction-#{id}-btn"}
-        phx-value-id={prediction.id}
-        phx-click="toggle-allow"
-        type="button"
-        class="relative"
-      >
+      <button id={"prediction-#{id}-btn"} type="button" class="relative">
         <img
           src={prediction.sticker_output}
           alt={prediction.prompt}
