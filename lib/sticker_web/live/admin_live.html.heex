@@ -6,6 +6,8 @@
     </div>
   </div>
 
+  <button class="bg-blue-500 text-white px-4 py-2 rounded-md">TURN ON AUTOPLAY</button>
+
   <.header class="mt-12">Latest Unmoderated Stuff</.header>
   <ul
     id="latest-predictions"
@@ -25,6 +27,7 @@
           <%= prediction.prompt %>
         </p>
       </button>
+      <span class="bg-red-600 bg-green-600 text-white text-red-600 text-green-600"></span>
       <div class="flex justify-center items-center">
         <button
           phx-value-id={prediction.id}
