@@ -18,7 +18,7 @@ defmodule Sticker.Utils do
 
     %{status_code: 200} =
       bucket
-      |> ExAws.S3.put_object(file_name, image_binary)
+      |> ExAws.S3.put_object(file_name, image_binary, content_type: "image/png")
       |> ExAws.request!()
 
     "#{System.get_env("AWS_PUBLIC_URL")}/#{bucket}/#{file_name}"
