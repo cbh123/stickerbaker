@@ -4,9 +4,6 @@
   </h3>
 
   <div class="text-center">
-    <.outline_button phx-value-id={@prediction.id} phx-click="flag">⛳️ Report</.outline_button>
-  </div>
-  <div class="text-center">
     <%= if is_nil(@prediction.sticker_output) do %>
       <div class="flex items-center justify-center relative animate-pulse rounded-xl">
         <img
@@ -75,6 +72,9 @@
           save
         </span>
       </a>
+    </div>
+    <div class="text-center">
+      <.outline_button phx-value-id={@prediction.id} phx-click="flag">⛳️ Report</.outline_button>
     </div>
   </div>
 </div>

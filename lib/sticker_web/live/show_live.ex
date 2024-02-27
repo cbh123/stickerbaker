@@ -40,7 +40,7 @@ defmodule StickerWeb.ShowLive do
      socket
      |> put_flash(
        :info,
-       "Your wish is granted. This will hide this prediction from the home page."
+       "Your wish is granted. This sticker is reported."
      )}
   end
 
