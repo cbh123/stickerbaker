@@ -9,10 +9,6 @@ defmodule StickerWeb.AdminLive do
     max_pages = Predictions.number_predictions() / per_page
     autoplay = Sticker.Autoplay.get_state()
 
-    if connected?(socket) do
-      Phoenix.PubSub.subscribe(Sticker.PubSub, "prediction-firehose")
-    end
-
     {:ok,
      socket
      |> assign(autoplay: autoplay)
