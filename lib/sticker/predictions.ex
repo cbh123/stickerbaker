@@ -130,6 +130,15 @@ defmodule Sticker.Predictions do
     |> offset(^offset_by)
   end
 
+  def list_latest_predictions_no_moderation(page, per_page \\ 20) do
+    from(p in Prediction,
+      where: not is_nil(p.sticker_output) and p.moderation_score <= 5 and is_nil(p.is_featured),
+      order_by: [desc: p.inserted_at]
+    )
+    |> paginate(page, per_page)
+    |> Repo.all()
+  end
+
   def list_latest_predictions(page, per_page \\ 20) do
     from(p in Prediction,
       where: not is_nil(p.sticker_output) and p.moderation_score <= 5,
