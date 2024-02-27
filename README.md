@@ -6,6 +6,11 @@
 
 Enter a prompt and generating a sticker using https://replicate.com/fofr/sticker-maker. Then, click to download and add to slack!
 
+StickerBaker runs on:
+- [Replicate](https://replicate.com/fofr/sticker-maker?utm_source=project&utm_campaign=stickerbaker) to generate the stickers
+- [Fly.io](https://fly.io) for infrastructure
+- [Tigris](https://www.tigrisdata.com) for image hosting
+
 ## Dev
 
 To start your Phoenix server:
