@@ -34,10 +34,6 @@ defmodule StickerWeb.HomeLive do
     {:noreply, socket}
   end
 
-  def handle_info({:new_prediction, prediction}, socket) do
-    {:noreply, socket |> stream_insert(:latest_predictions, prediction, at: 0)}
-  end
-
   def handle_event("load-more", _, %{assigns: assigns} = socket) do
     next_page = assigns.page + 1
 
@@ -75,6 +71,10 @@ defmodule StickerWeb.HomeLive do
      socket
      |> assign(form: to_form(%{"prompt" => ""}))
      |> stream_insert(:my_predictions, prediction, at: 0)}
+  end
+
+  def handle_info({:new_prediction, prediction}, socket) do
+    {:noreply, socket |> stream_insert(:latest_predictions, prediction, at: 0)}
   end
 
   def handle_info({:kick_off, prediction}, socket) do

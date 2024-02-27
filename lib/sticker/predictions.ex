@@ -151,7 +151,7 @@ defmodule Sticker.Predictions do
   def list_latest_predictions(page, per_page \\ 20) do
     from(p in Prediction,
       where: not is_nil(p.sticker_output) and p.moderation_score <= 5,
-      order_by: [desc: p.inserted_at]
+      order_by: [desc: p.updated_at]
     )
     |> paginate(page, per_page)
     |> Repo.all()

@@ -16,16 +16,62 @@ defmodule StickerWeb.AdminLive do
     {:ok,
      socket
      |> assign(autoplay: autoplay)
+     |> assign(show_all: false)
      |> assign(local_user_id: session["local_user_id"])
      |> assign(page: page)
      |> assign(per_page: per_page)
      |> assign(max_pages: max_pages)
-     |> assign(number_predictions: Predictions.number_predictions())
-     |> stream(:latest_predictions, list_latest_predictions_no_moderation(page, per_page))}
+     |> assign(number_predictions: Predictions.number_predictions())}
+  end
+
+  def handle_params(%{"all" => "true"}, _, socket) do
+    {:noreply,
+     socket
+     |> assign(show_all: true)
+     |> stream(
+       :latest_predictions,
+       list_latest_predictions(socket.assigns.page, socket.assigns.per_page)
+     )}
+  end
+
+  def handle_params(_params, _, socket) do
+    {:noreply,
+     socket
+     |> stream(
+       :latest_predictions,
+       list_latest_predictions_no_moderation(socket.assigns.page, socket.assigns.per_page)
+     )}
   end
 
   defp list_latest_predictions_no_moderation(page, per_page) do
     Predictions.list_latest_predictions_no_moderation(page, per_page)
+  end
+
+  defp list_latest_predictions(page, per_page) do
+    Predictions.list_latest_predictions(page, per_page)
+  end
+
+  def handle_event(
+        "swipe_prediction",
+        %{"prediction" => prediction_data, "action" => action},
+        socket
+      ) do
+    IO.puts("swipe_prediction: #{action} #{prediction_data}")
+
+    prediction = Predictions.get_prediction!(prediction_data)
+
+    {:ok, _prediction} =
+      Predictions.update_prediction(prediction, %{"is_featured" => action == "allow"})
+
+    if action == "allow" do
+      Phoenix.PubSub.broadcast(
+        Sticker.PubSub,
+        "safe-prediction-firehose",
+        {:new_prediction, prediction}
+      )
+    end
+
+    {:noreply, socket}
   end
 
   def handle_event("toggle-autoplay", _params, socket) do

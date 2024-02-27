@@ -3,3 +3,113 @@
 @import "tailwindcss/utilities";
 
 /* This file is for your main application CSS */
+
+@keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-20px); }
+    50% { transform: translateX(20px); }
+    75% { transform: translateX(-20px); }
+    100% { transform: translateX(0); }
+  }
+
+  .animate-shake {
+    animation: shake 0.5s ease-in-out;
+  }
+
+  .tinder {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    opacity: 0;
+    transition: opacity 0.1s ease-in-out;
+  }
+
+  .loaded.tinder {
+    opacity: 1;
+  }
+
+  .tinder--status {
+    position: absolute;
+    top: 50%;
+    margin-top: -30px;
+    z-index: 2;
+    width: 100%;
+    text-align: center;
+    pointer-events: none;
+  }
+
+  .tinder--status i {
+    font-size: 100px;
+    opacity: 0;
+    transform: scale(0.3);
+    transition: all 0.2s ease-in-out;
+    position: absolute;
+    width: 100px;
+    margin-left: -50px;
+  }
+
+  .tinder_love .fa-heart {
+    opacity: 0.7;
+    transform: scale(1);
+  }
+
+  .tinder_nope .fa-remove {
+    opacity: 0.7;
+    transform: scale(1);
+  }
+
+  .tinder--cards {
+    flex-grow: 1;
+    padding-top: 40px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    z-index: 1;
+  }
+
+  .tinder--card {
+    display: inline-block;
+    width: 90vw;
+    max-width: 400px;
+    height: 70vh;
+    background: #FFFFFF;
+    padding-bottom: 40px;
+    border-radius: 8px;
+    overflow: hidden;
+    position: absolute;
+    will-change: transform;
+    transition: all 0.3s ease-in-out;
+    cursor: -webkit-grab;
+    cursor: -moz-grab;
+    cursor: grab;
+  }
+
+  .moving.tinder--card {
+    transition: none;
+    cursor: -webkit-grabbing;
+    cursor: -moz-grabbing;
+    cursor: grabbing;
+  }
+
+  .tinder--card img {
+    max-width: 100%;
+    pointer-events: none;
+  }
+
+  .tinder--card h3 {
+    margin-top: 32px;
+    font-size: 32px;
+    padding: 0 16px;
+    pointer-events: none;
+  }
+
+  .tinder--card p {
+    margin-top: 24px;
+    font-size: 20px;
+    padding: 0 16px;
+    pointer-events: none;
+  }

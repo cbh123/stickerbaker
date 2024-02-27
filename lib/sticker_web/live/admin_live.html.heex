@@ -14,45 +14,87 @@
     <%= if @autoplay, do: "Turn Off Autoplay", else: "Turn On Autoplay" %>
   </button>
 
-  <.header class="mt-12">Latest Unmoderated Stuff</.header>
-  <ul
-    id="latest-predictions"
-    phx-update="stream"
-    phx-viewport-bottom="load-more"
-    role="list"
-    class="grid grid-cols-2 sm:grid-cols-6 mb-24 mt-6 gap-x-4 gap-y-8 sm:gap-x-6 xl:gap-x-8"
-  >
-    <li :for={{id, prediction} <- @streams.latest_predictions} id={id} class="relative flex-none">
-      <button id={"prediction-#{id}-btn"} type="button" class="relative">
-        <img
-          src={prediction.sticker_output}
-          alt={prediction.prompt}
-          class="pointer-events-none object-cover group-hover:opacity-75"
-        />
-        <p class="">
-          <%= prediction.prompt %>
-        </p>
-      </button>
-      <span class="bg-red-600 bg-green-600 text-white text-red-600 text-green-600"></span>
-      <div class="flex justify-center items-center">
-        <button
-          phx-value-id={prediction.id}
-          phx-click="unallow"
-          class={"#{if prediction.is_featured == false, do: "bg-red-600 text-white", else: "text-red-600 bg-white"} border px-2 py-2"}
-        >
-          ❌ <span class="hidden sm:inline-flex">DISALLOW</span>
+  <%= if @show_all do %>
+    <.link navigate={~p"/admin"}>
+      <.outline_button>Activate Tinder Mode</.outline_button>
+    </.link>
+  <% else %>
+    <.link navigate={~p"/admin?all=true"}>
+      <.outline_button>Activate Regular Mode</.outline_button>
+    </.link>
+  <% end %>
+
+  <%= if @show_all == false do %>
+    <div class="text-center mt-4">
+      <.header>Every swipe right will broadcast to the main feed</.header>
+    </div>
+    <div id="tinder" phx-hook="Tinder" class="tinder">
+      <div class="tinder--cards">
+        <%= for {_stream_id, prediction} <- @streams.latest_predictions do %>
+          <div
+            id={"prediction-#{prediction.id}"}
+            data-prediction-id={prediction.id}
+            class="tinder--card"
+          >
+            <img src={prediction.sticker_output} />
+            <h3><%= prediction.prompt %></h3>
+          </div>
+        <% end %>
+      </div>
+
+      <div class="flex justify-center gap-4">
+        <button id="nope" class="bg-red-500 text-white text-4xl px-3 py-2">
+          ❌ NO
         </button>
-        <button
-          phx-value-id={prediction.id}
-          phx-click="allow"
-          class={"#{if prediction.is_featured, do: "bg-green-600 text-white", else: "text-green-600 bg-white"} border px-2 py-2"}
-        >
-          ✅<span class="hidden sm:inline-flex">ALLOW</span>
+        <button id="love" class="bg-green-500 text-white text-4xl px-3 py-2">
+          <span>✅ YES</span>
         </button>
       </div>
-    </li>
-  </ul>
-  <p :if={@page < @max_pages} class="animate-pulse text-xl text-center italic my-24">
-    <img class="h-32 mx-auto" src="/images/loading.png" alt="loading" /> Loading...
-  </p>
+    </div>
+  <% else %>
+    <ul
+      id="latest-predictions"
+      phx-update="stream"
+      phx-viewport-bottom="load-more"
+      role="list"
+      class="grid grid-cols-2 sm:grid-cols-6 mb-24 mt-6 gap-x-4 gap-y-8 sm:gap-x-6 xl:gap-x-8"
+    >
+      <li
+        :for={{id, prediction} <- @streams.latest_predictions}
+        id={id}
+        class="relative flex-none"
+      >
+        <button id={"prediction-#{id}-btn"} type="button" class="relative">
+          <img
+            src={prediction.sticker_output}
+            alt={prediction.prompt}
+            class="pointer-events-none object-cover group-hover:opacity-75"
+          />
+          <p class="">
+            <%= prediction.prompt %>
+          </p>
+        </button>
+        <span class="bg-red-600 bg-green-600 text-white text-red-600 text-green-600"></span>
+        <div class="flex justify-center items-center">
+          <button
+            phx-value-id={prediction.id}
+            phx-click="unallow"
+            class={"#{if prediction.is_featured == false, do: "bg-red-600 text-white", else: "text-red-600 bg-white"} border px-2 py-2"}
+          >
+            ❌ <span class="hidden sm:inline-flex">DISALLOW</span>
+          </button>
+          <button
+            phx-value-id={prediction.id}
+            phx-click="allow"
+            class={"#{if prediction.is_featured, do: "bg-green-600 text-white", else: "text-green-600 bg-white"} border px-2 py-2"}
+          >
+            ✅<span class="hidden sm:inline-flex">ALLOW</span>
+          </button>
+        </div>
+      </li>
+    </ul>
+    <p :if={@page < @max_pages} class="animate-pulse text-xl text-center italic my-24">
+      <img class="h-32 mx-auto" src="/images/loading.png" alt="loading" /> Loading...
+    </p>
+  <% end %>
 </div>
