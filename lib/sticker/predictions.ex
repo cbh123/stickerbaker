@@ -130,6 +130,15 @@ defmodule Sticker.Predictions do
     |> offset(^offset_by)
   end
 
+  def get_oldest_safe_prediction() do
+    from(p in Prediction,
+      where: not is_nil(p.sticker_output) and p.moderation_score <= 5 and p.is_featured == true,
+      order_by: [asc: p.updated_at],
+      limit: 1
+    )
+    |> Repo.one()
+  end
+
   def list_latest_predictions_no_moderation(page, per_page \\ 20) do
     from(p in Prediction,
       where: not is_nil(p.sticker_output) and p.moderation_score <= 5 and is_nil(p.is_featured),

@@ -6,7 +6,12 @@
     </div>
   </div>
 
-  <button class="bg-blue-500 text-white px-4 py-2 rounded-md">TURN ON AUTOPLAY</button>
+  <button
+    phx-click="toggle-autoplay"
+    class={"#{if @autoplay, do: "bg-red-600", else: "bg-green-600"} text-white px-4 py-2 rounded-md"}
+  >
+    <%= if @autoplay, do: "Turn Off Autoplay", else: "Turn On Autoplay" %>
+  </button>
 
   <.header class="mt-12">Latest Unmoderated Stuff</.header>
   <ul

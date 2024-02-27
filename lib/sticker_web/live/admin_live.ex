@@ -7,6 +7,7 @@ defmodule StickerWeb.AdminLive do
     page = 0
     per_page = 20
     max_pages = Predictions.number_predictions() / per_page
+    autoplay = Sticker.Autoplay.get_state()
 
     if connected?(socket) do
       Phoenix.PubSub.subscribe(Sticker.PubSub, "prediction-firehose")
@@ -14,6 +15,7 @@ defmodule StickerWeb.AdminLive do
 
     {:ok,
      socket
+     |> assign(autoplay: autoplay)
      |> assign(local_user_id: session["local_user_id"])
      |> assign(page: page)
      |> assign(per_page: per_page)
@@ -23,6 +25,22 @@ defmodule StickerWeb.AdminLive do
 
   defp list_latest_predictions_no_moderation(page, per_page) do
     Predictions.list_latest_predictions_no_moderation(page, per_page)
+  end
+
+  def handle_event("toggle-autoplay", _params, socket) do
+    if socket.assigns.autoplay do
+      Sticker.Autoplay.deactivate()
+    else
+      Sticker.Autoplay.activate()
+    end
+
+    # Fetch the new state to ensure consistency
+    new_state = Sticker.Autoplay.get_state()
+
+    # Update the socket with the new state and re-render
+    {:noreply,
+     assign(socket, autoplay: new_state)
+     |> put_flash(:info, "Autoplay should be #{new_state}. Check the home page to confirm.")}
   end
 
   def handle_event("load-more", _, %{assigns: assigns} = socket) do

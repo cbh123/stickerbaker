@@ -21,6 +21,8 @@ defmodule Sticker.Predictions.Prediction do
     field :status, Ecto.Enum,
       values: [:starting, :processing, :succeeded, :failed, :canceled, :moderation_succeeded]
 
+    field :autoplay_time, :utc_datetime
+
     timestamps()
   end
 
@@ -41,7 +43,8 @@ defmodule Sticker.Predictions.Prediction do
       :embedding,
       :image_embedding,
       :embedding_model,
-      :status
+      :status,
+      :autoplay_time
     ])
     |> validate_required([:prompt])
   end
