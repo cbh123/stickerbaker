@@ -37,17 +37,30 @@ defmodule StickerWeb.AdminLive do
      |> stream(:latest_predictions, latest_predictions)}
   end
 
-  def handle_event("toggle-allow", %{"id" => id}, socket) do
+  def handle_event("allow", %{"id" => id}, socket) do
     prediction = Predictions.get_prediction!(id)
 
+    set_featured_to = if prediction.is_featured == true, do: nil, else: true
+
     {:ok, prediction} =
-      Predictions.update_prediction(prediction, %{"is_featured" => !prediction.is_featured})
+      Predictions.update_prediction(prediction, %{"is_featured" => set_featured_to})
 
     Phoenix.PubSub.broadcast(
       Sticker.PubSub,
       "safe-prediction-firehose",
       {:new_prediction, prediction}
     )
+
+    {:noreply, socket |> stream_insert(:latest_predictions, prediction)}
+  end
+
+  def handle_event("unallow", %{"id" => id}, socket) do
+    prediction = Predictions.get_prediction!(id)
+
+    set_featured_to = if prediction.is_featured == false, do: nil, else: false
+
+    {:ok, prediction} =
+      Predictions.update_prediction(prediction, %{"is_featured" => set_featured_to})
 
     {:noreply, socket |> stream_insert(:latest_predictions, prediction)}
   end

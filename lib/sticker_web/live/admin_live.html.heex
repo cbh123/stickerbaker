@@ -22,7 +22,6 @@
         type="button"
         class="relative"
       >
-        <p :if={!prediction.is_featured} class="text-5xl absolute inline-flex text-red-500">X</p>
         <img
           src={prediction.sticker_output}
           alt={prediction.prompt}
@@ -32,23 +31,22 @@
           <%= prediction.prompt %>
         </p>
       </button>
-      <%= if prediction.is_featured do %>
+      <div class="flex justify-center items-center">
         <button
           phx-value-id={prediction.id}
-          phx-click="toggle-allow"
-          class="bg-red-50 border px-2 py-2"
+          phx-click="unallow"
+          class={"#{if prediction.is_featured == false, do: "bg-red-600 text-white", else: "text-red-600 bg-white"} border px-2 py-2"}
         >
-          UN-ALLOW
+          ❌ UNALLOW
         </button>
-      <% else %>
         <button
           phx-value-id={prediction.id}
-          phx-click="toggle-allow"
-          class="bg-green-50 border px-2 py-2"
+          phx-click="allow"
+          class={"#{if prediction.is_featured, do: "bg-green-600 text-white", else: "text-green-600 bg-white"} border px-2 py-2"}
         >
-          ALLOW
+          ✅ ALLOW
         </button>
-      <% end %>
+      </div>
     </li>
   </ul>
   <p :if={@page < @max_pages} class="animate-pulse text-xl text-center italic my-24">
