@@ -8,10 +8,14 @@ defmodule StickerWeb.AdminLive do
     per_page = 20
     max_pages = Predictions.number_predictions() / per_page
     autoplay = Sticker.Autoplay.get_state()
+    total_unmoderated_predictions = Predictions.number_unmoderated_predictions()
+    total_moderated_predictions = Predictions.number_moderated_predictions()
 
     {:ok,
      socket
      |> assign(autoplay: autoplay)
+     |> assign(total_unmoderated_predictions: total_unmoderated_predictions)
+     |> assign(total_moderated_predictions: total_moderated_predictions)
      |> assign(show_all: false)
      |> assign(local_user_id: session["local_user_id"])
      |> assign(page: page)
