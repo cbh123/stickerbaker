@@ -78,6 +78,19 @@ Hooks.Tinder = {
       }, 500);
     };
 
+    document.addEventListener("keydown", function (event) {
+      const nopeButton = document.getElementById("nope");
+      const loveButton = document.getElementById("love");
+
+      if (event.key === "ArrowLeft") {
+        // Simulate a left swipe
+        nopeButton.click();
+      } else if (event.key === "ArrowRight") {
+        // Simulate a right swipe
+        loveButton.click();
+      }
+    });
+
     function initCards(card, index) {
       var newCards = document.querySelectorAll(".tinder--card:not(.removed)");
 

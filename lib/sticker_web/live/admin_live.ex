@@ -5,7 +5,7 @@ defmodule StickerWeb.AdminLive do
 
   def mount(_params, session, socket) do
     page = 0
-    per_page = 20
+    per_page = 50
     max_pages = Predictions.number_predictions() / per_page
     autoplay = Sticker.Autoplay.get_state()
     total_unmoderated_predictions = Predictions.number_unmoderated_predictions()
@@ -39,7 +39,7 @@ defmodule StickerWeb.AdminLive do
      socket
      |> stream(
        :latest_predictions,
-       list_latest_predictions_no_moderation(socket.assigns.page, 100)
+       list_latest_predictions_no_moderation(socket.assigns.page, socket.assigns.per_page)
      )}
   end
 
