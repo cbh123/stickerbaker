@@ -39,7 +39,7 @@ defmodule StickerWeb.AdminLive do
      socket
      |> stream(
        :latest_predictions,
-       list_latest_predictions_no_moderation(socket.assigns.page, 300)
+       list_latest_predictions_no_moderation(socket.assigns.page, 50)
      )}
   end
 
