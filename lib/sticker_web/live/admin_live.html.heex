@@ -13,6 +13,14 @@
         Keep up the good work deepfates! Just <%= @total_unmoderated_predictions %> more to go!
       </p>
     </div>
+
+    <div class="w-full bg-gray-200 rounded-full h-2.5 mt-4">
+      <div
+        class="bg-green-600 h-2.5 rounded-full"
+        style={"width: #{@total_moderated_predictions / @number_predictions * 100}%"}
+      >
+      </div>
+    </div>
   </div>
 
   <button
