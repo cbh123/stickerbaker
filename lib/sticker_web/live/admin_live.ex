@@ -71,7 +71,13 @@ defmodule StickerWeb.AdminLive do
       )
     end
 
-    {:noreply, socket}
+    total_unmoderated_predictions = Predictions.number_unmoderated_predictions()
+    total_moderated_predictions = Predictions.number_moderated_predictions()
+
+    {:noreply,
+     socket
+     |> assign(total_unmoderated_predictions: total_unmoderated_predictions)
+     |> assign(total_moderated_predictions: total_moderated_predictions)}
   end
 
   def handle_event("toggle-autoplay", _params, socket) do
