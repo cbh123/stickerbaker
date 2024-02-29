@@ -11,7 +11,7 @@
       "undefined" == typeof b
         ? (b = { autoBom: !1 })
         : "object" != typeof b &&
-          (console.warn("Depricated: Expected third argument to be a object"),
+          (console.warn("Deprecated: Expected third argument to be a object"),
           (b = { autoBom: !b })),
       b.autoBom &&
       /^\s*(?:text\/\S*|application\/xml|\S*\/\S*\+xml)\s*;.*charset\s*=\s*utf-8/i.test(
