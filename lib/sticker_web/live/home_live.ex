@@ -77,6 +77,10 @@ defmodule StickerWeb.HomeLive do
     {:noreply, socket |> stream_insert(:latest_predictions, prediction, at: 0)}
   end
 
+  def handle_info({:new_prediction, prediction}, socket) do
+    {:noreply, socket |> stream_insert(:latest_predictions, prediction, at: 0)}
+  end
+
   def handle_info({:kick_off, prediction}, socket) do
     Predictions.moderate(prediction.prompt, prediction.local_user_id, prediction.id)
     {:noreply, socket}

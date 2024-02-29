@@ -1,7 +1,7 @@
 defmodule StickerWeb.SearchLive do
   use StickerWeb, :live_view
 
-  @num_results 21
+  @num_results 31
 
   @impl true
   def mount(_params, _session, socket) do
@@ -10,7 +10,7 @@ defmodule StickerWeb.SearchLive do
      |> assign(
        loading: false,
        num_results: @num_results,
-       form: to_form(%{"query" => nil, "search_via_images" => false})
+       form: to_form(%{"query" => nil})
      )
      |> stream_configure(:results,
        dom_id: fn {prediction, _distance} ->
@@ -23,58 +23,24 @@ defmodule StickerWeb.SearchLive do
   @impl true
   def handle_event(
         "search",
-        %{"query" => query, "search_via_images" => search_via_images},
+        %{"query" => query},
         socket
       ) do
     {:noreply,
      push_patch(socket,
-       to: ~p"/experimental-search?query=#{query}&search_via_images=#{search_via_images}"
+       to: ~p"/experimental-search?query=#{query}"
      )}
   end
 
   @impl true
   def handle_params(
-        %{
-          "query" => query,
-          "search_via_images" => search_via_images,
-          "num_results" => num_results
-        } = params,
+        %{"query" => query} = params,
         _uri,
         socket
       ) do
     Task.async(fn ->
-      Sticker.Embeddings.search_stickers(query, num_results, search_via_images == "true")
+      Sticker.Embeddings.search_stickers(query, @num_results)
     end)
-
-    {:noreply,
-     socket
-     |> assign(
-       loading: true,
-       form: to_form(params)
-     )}
-  end
-
-  @impl true
-  def handle_params(
-        %{"query" => query, "search_via_images" => search_via_images} = params,
-        _uri,
-        socket
-      ) do
-    Task.async(fn ->
-      Sticker.Embeddings.search_stickers(query, @num_results, search_via_images == "true")
-    end)
-
-    {:noreply,
-     socket
-     |> assign(
-       loading: true,
-       form: to_form(params)
-     )}
-  end
-
-  @impl true
-  def handle_params(%{"query" => query} = params, _uri, socket) do
-    Task.async(fn -> Sticker.Embeddings.search_stickers(query, @num_results, false) end)
 
     {:noreply,
      socket

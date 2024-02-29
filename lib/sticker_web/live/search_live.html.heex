@@ -12,14 +12,6 @@
         class="block w-full rounded-md border-gray-300 pr-12 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
       />
     </div>
-    <br />
-    <.input
-      field={@form[:search_via_images]}
-      type="checkbox"
-      label="Search via image description (experimental)"
-      id="exact"
-      class="ml-2 hidden"
-    />
   </.form>
 
   <div :if={@loading} class="mt-2 animate-pulse">Searching...</div>

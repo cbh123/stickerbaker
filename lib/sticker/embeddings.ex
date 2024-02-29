@@ -60,16 +60,12 @@ defmodule Sticker.Embeddings do
     end
   end
 
-  def search_stickers(query, num_results \\ 9, via_images \\ false) do
+  def search_stickers(query, num_results \\ 9) do
     embedding_binary = find_or_create_embedding(query)
     embedding = Nx.from_binary(embedding_binary, :f32)
 
     %{labels: labels, distances: distances} =
-      if via_images do
-        Sticker.Embeddings.Index.search_images(embedding, num_results)
-      else
-        Sticker.Embeddings.Index.search_text(embedding, num_results)
-      end
+      Sticker.Embeddings.Index.search_text(embedding, num_results)
 
     ids = Nx.to_flat_list(labels)
     distances = Nx.to_flat_list(distances)
