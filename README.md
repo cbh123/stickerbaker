@@ -57,6 +57,10 @@ This sends a `:kick_off` message to the LiveView (so there is no lag) which call
 We pass a webhook to [Replicate](https://replicate.com). All the logic for the webhook lives in `lib/sticker_web/controllers/replicate_webhook_controller.ex`. The nice thing about this webhook is that we can refresh the page or disconnect and [Replicate](https://replicate.com) still handles the prediction queue for us. Once the prediction is ready,
 we upload it to Tigris (Replicate doesn't save our data for us) and then the sticker gets broadcast back to our `home_live.ex`.
 
+**Importantly**, because we're passing Replicate a webhook, for local dev you'll need [ngrok](https://ngrok.com) running to tunnel your localhost to a URL. Once you install ngrok run it with `ngrok http 4000` and paste the URL into your copied `.env` file.
+
+## Stack
+
 StickerBaker runs on:
 
 - [Replicate](https://replicate.com/fofr/sticker-maker?utm_source=project&utm_campaign=stickerbaker) to generate the stickers
@@ -68,7 +72,15 @@ StickerBaker runs on:
 To start your Phoenix server:
 
 - Run `mix setup` to install and setup dependencies
+- Create an env file with `cp .env.copy .env`
+  - Add your [Replicate](https://replicate.com) tokens
+  - Add [Tigris](https://fly.io/docs/reference/tigris/) tokens
+  - Start ngrok with `ngrok http 4000` and add that to your env
 - Start Phoenix endpoint with `mix phx.server` or inside IEx with `iex -S mix phx.server`
 - Add a .env file with REPLICATE_API_TOKEN set to your [Replicate](https://replicate.com/) token
 
 Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+
+## Prod
+
+Deploy with `fly launch`
