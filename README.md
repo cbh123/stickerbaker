@@ -55,7 +55,7 @@ This sends a `:kick_off` message to the LiveView (so there is no lag) which call
 ```
 
 We pass a webhook to [Replicate](https://replicate.com). All the logic for the webhook lives in `lib/sticker_web/controllers/replicate_webhook_controller.ex`. The nice thing about this webhook is that we can refresh the page or disconnect and [Replicate](https://replicate.com) still handles the prediction queue for us. Once the prediction is ready,
-we upload it to Tigris (Replicate doesn't save our data for us) and then the sticker gets broadcast back to our `home_live.ex`.
+we upload it to [Tigris](https://fly.io/docs/reference/tigris/) (Replicate doesn't save our data for us) and then the sticker gets broadcast back to our `home_live.ex`.
 
 **Importantly**, because we're passing Replicate a webhook, for local dev you'll need [ngrok](https://ngrok.com) running to tunnel your localhost to a URL. Once you install ngrok run it with `ngrok http 4000` and paste the URL into your copied `.env` file.
 
