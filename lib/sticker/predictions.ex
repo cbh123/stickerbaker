@@ -84,7 +84,7 @@ defmodule Sticker.Predictions do
 
   def get_random_prediction_without_text_embeddings() do
     from(p in Prediction,
-      where: is_nil(p.embedding) and not is_nil(p.sticker_output) and p.is_featured == true,
+      where: is_nil(p.embedding) and not is_nil(p.sticker_output) and p.score == 0,
       order_by: fragment("RANDOM()"),
       limit: 1
     )
@@ -93,7 +93,7 @@ defmodule Sticker.Predictions do
 
   def get_random_prediction_without_image_embeddings() do
     from(p in Prediction,
-      where: is_nil(p.image_embedding) and not is_nil(p.sticker_output) and p.is_featured == true,
+      where: is_nil(p.image_embedding) and not is_nil(p.sticker_output) and p.score == 0,
       order_by: fragment("RANDOM()"),
       limit: 1
     )
