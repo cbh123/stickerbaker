@@ -6,7 +6,7 @@ defmodule StickerWeb.HomeLive do
   def mount(_params, session, socket) do
     page = 0
     per_page = 20
-    max_pages = Predictions.number_safe_predictions() / per_page
+    max_pages = Predictions.number_moderated_predictions() / per_page
 
     loading_predictions =
       Predictions.list_loading_predictions(session["local_user_id"]) |> IO.inspect(label: "hi")

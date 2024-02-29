@@ -61,8 +61,11 @@ defmodule Sticker.Predictions do
     |> Repo.all()
   end
 
-  def get_predictions(ids) do
-    from(p in Prediction, where: p.id in ^ids and not is_nil(p.sticker_output)) |> Repo.all()
+  defp safe_prediction_query() do
+    from(p in Prediction,
+      where: not is_nil(p.sticker_output) and p.is_featured == true,
+      order_by: [desc: p.updated_at]
+    )
   end
 
   def count_predictions_with_text_embeddings() do
@@ -81,7 +84,7 @@ defmodule Sticker.Predictions do
 
   def get_random_prediction_without_text_embeddings() do
     from(p in Prediction,
-      where: is_nil(p.embedding) and not is_nil(p.sticker_output) and p.score != 10,
+      where: is_nil(p.embedding) and not is_nil(p.sticker_output) and p.is_featured == true,
       order_by: fragment("RANDOM()"),
       limit: 1
     )
@@ -90,7 +93,7 @@ defmodule Sticker.Predictions do
 
   def get_random_prediction_without_image_embeddings() do
     from(p in Prediction,
-      where: is_nil(p.image_embedding) and not is_nil(p.sticker_output) and p.score != 10,
+      where: is_nil(p.image_embedding) and not is_nil(p.sticker_output) and p.is_featured == true,
       order_by: fragment("RANDOM()"),
       limit: 1
     )
@@ -131,17 +134,14 @@ defmodule Sticker.Predictions do
   end
 
   def get_oldest_safe_prediction() do
-    from(p in Prediction,
-      where: not is_nil(p.sticker_output) and p.moderation_score <= 5 and p.is_featured == true,
-      order_by: [asc: p.updated_at],
-      limit: 1
-    )
+    safe_prediction_query()
+    |> limit(1)
     |> Repo.one()
   end
 
   def list_latest_predictions_no_moderation(page, per_page \\ 20) do
     from(p in Prediction,
-      where: not is_nil(p.sticker_output) and p.moderation_score <= 5 and is_nil(p.is_featured),
+      where: not is_nil(p.sticker_output) and is_nil(p.is_featured),
       order_by: [desc: p.inserted_at]
     )
     |> paginate(page, per_page)
@@ -150,7 +150,7 @@ defmodule Sticker.Predictions do
 
   def list_latest_predictions(page, per_page \\ 20) do
     from(p in Prediction,
-      where: not is_nil(p.sticker_output) and p.moderation_score <= 5,
+      where: not is_nil(p.sticker_output),
       order_by: [desc: p.updated_at]
     )
     |> paginate(page, per_page)
@@ -158,17 +158,14 @@ defmodule Sticker.Predictions do
   end
 
   def list_latest_safe_predictions(page, per_page \\ 20) do
-    from(p in Prediction,
-      where: not is_nil(p.sticker_output) and p.moderation_score <= 5 and p.is_featured == true,
-      order_by: [desc: p.updated_at]
-    )
+    safe_prediction_query()
     |> paginate(page, per_page)
     |> Repo.all()
   end
 
   def number_predictions() do
     from(p in Prediction,
-      where: not is_nil(p.sticker_output) and p.moderation_score <= 5,
+      where: not is_nil(p.sticker_output),
       order_by: [desc: p.inserted_at]
     )
     |> Repo.aggregate(:count)
@@ -176,55 +173,26 @@ defmodule Sticker.Predictions do
 
   def number_unmoderated_predictions() do
     from(p in Prediction,
-      where: not is_nil(p.sticker_output) and p.moderation_score <= 5 and is_nil(p.is_featured),
+      where: not is_nil(p.sticker_output) and is_nil(p.is_featured),
       order_by: [desc: p.inserted_at]
     )
     |> Repo.aggregate(:count)
   end
 
   def number_moderated_predictions() do
-    from(p in Prediction,
-      where:
-        not is_nil(p.sticker_output) and p.moderation_score <= 5 and not is_nil(p.is_featured),
-      order_by: [desc: p.inserted_at]
-    )
+    safe_prediction_query()
     |> Repo.aggregate(:count)
   end
 
-  def number_safe_predictions() do
-    from(p in Prediction,
-      where: not is_nil(p.sticker_output) and p.moderation_score <= 5 and p.is_featured == true,
-      order_by: [desc: p.inserted_at]
-    )
-    |> Repo.aggregate(:count)
-  end
-
+  @doc """
+  Returns the list of predictions for a user.
+  """
   def list_user_predictions(user_id) do
     Repo.all(
       from p in Prediction,
         where: p.local_user_id == ^user_id,
         order_by: [desc: p.inserted_at],
         where: not is_nil(p.sticker_output)
-    )
-  end
-
-  def list_finished_predictions() do
-    Repo.all(
-      from p in Prediction,
-        where: not is_nil(p.no_bg_output) and p.score > 3 and p.count_votes > 5,
-        order_by: fragment("RANDOM()"),
-        limit: 16
-    )
-  end
-
-  def list_featured_predictions() do
-    Repo.all(
-      from p in Prediction,
-        where:
-          p.is_featured == true or
-            (not is_nil(p.no_bg_output) and p.score > 3 and p.count_votes > 5),
-        order_by: fragment("RANDOM()"),
-        limit: 16
     )
   end
 
