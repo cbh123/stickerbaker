@@ -10,6 +10,8 @@ defmodule StickerWeb.SearchLive do
      |> assign(
        loading: false,
        num_results: @num_results,
+       number_searchable_stickers: Sticker.Predictions.count_predictions_with_text_embeddings(),
+       elapsed_time: nil,
        form: to_form(%{"query" => nil})
      )
      |> stream_configure(:results,
@@ -33,11 +35,9 @@ defmodule StickerWeb.SearchLive do
   end
 
   @impl true
-  def handle_params(
-        %{"query" => query} = params,
-        _uri,
-        socket
-      ) do
+  def handle_params(%{"query" => query} = params, _uri, socket) do
+    start_time = System.monotonic_time()
+
     Task.async(fn ->
       Sticker.Embeddings.search_stickers(query, @num_results)
     end)
@@ -46,6 +46,7 @@ defmodule StickerWeb.SearchLive do
      socket
      |> assign(
        loading: true,
+       start_time: start_time,
        form: to_form(params)
      )}
   end
@@ -57,10 +58,14 @@ defmodule StickerWeb.SearchLive do
   @impl true
   def handle_info({ref, results}, socket) do
     Process.demonitor(ref, [:flush])
+    end_time = System.monotonic_time()
+
+    elapsed_time =
+      System.convert_time_unit(end_time - socket.assigns.start_time, :native, :millisecond)
 
     {:noreply,
      socket
-     |> assign(loading: false)
+     |> assign(loading: false, elapsed_time: elapsed_time)
      |> stream(:results, results, reset: true)}
   end
 end

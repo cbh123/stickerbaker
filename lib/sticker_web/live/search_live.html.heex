@@ -1,7 +1,5 @@
 <div>
-  <.back navigate={~p"/"}>Back</.back>
   <.form for={@form} class="mt-4" name="sticker-search" id="sticker-search" phx-submit="search">
-    <label for="search" class="block text-sm font-medium text-gray-700">Sticker Search</label>
     <div class="relative mt-1 flex items-center">
       <.input
         type="text"
@@ -13,8 +11,14 @@
       />
     </div>
   </.form>
+  <p :if={not is_nil(@elapsed_time)} class="mt-2 text-sm text-gray-500">
+    Searched <%= @number_searchable_stickers %> stickers in <%= @elapsed_time / 1000.0 %> seconds
+  </p>
 
-  <div :if={@loading} class="mt-2 animate-pulse">Searching...</div>
+  <div :if={@loading} class="text-center mt-14 animate-pulse">
+    <h2 class="text-3xl text-bold">Searching <%= @number_searchable_stickers %> stickers...</h2>
+    <img src="/images/loading.png" class="mx-auto w-20" alt="" />
+  </div>
 
   <ul
     :if={not @loading}
