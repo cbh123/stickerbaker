@@ -3,14 +3,24 @@
     <div class="flex items-center gap-4">
       <.link class="font-bold inline-flex items-center" navigate="/">
         <img class="h-9 w-9" src="/images/oven.png" />
-        <span class="hidden md:inline-flex"> StickerBaker</span>
+        <span class="hidden md:inline-flex font-brand text-orange-500"> StickerBaker</span>
       </.link>
-      <a href="https://github.com/cbh123/stickerbaker" class="font-medium hidden md:inline-flex">
-        An Open Source AI Sticker Maker
+      <a href="https://github.com/cbh123/stickerbaker" class="font-brand hidden md:inline-flex">
+        Open Source AI Sticker Maker
       </a>
     </div>
 
-    <div><.link navigate={~p"/stickers"}>Oven</.link></div>
+    <div class="font-brand flex items-center gap-4">
+      <.outline_button><.link navigate={~p"/stickers"}>Oven</.link></.outline_button>
+      <.outline_button>
+        <.link navigate={~p"/search"}>
+          Search
+          <span class="inline-flex items-center rounded-full bg-orange-100 px-2 py-1 text-xs font-medium text-orange-700">
+            NEW
+          </span>
+        </.link>
+      </.outline_button>
+    </div>
   </div>
 </header>
 

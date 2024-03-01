@@ -3,6 +3,8 @@ defmodule StickerWeb.HomeLive do
   alias Phoenix.PubSub
   alias Sticker.Predictions
 
+  @accepted ~w(.jpg .jpeg .png .heic)
+
   def mount(_params, session, socket) do
     page = 0
     per_page = 20
@@ -24,7 +26,7 @@ defmodule StickerWeb.HomeLive do
      |> assign(max_pages: max_pages)
      |> stream(:my_predictions, loading_predictions)
      |> stream(:latest_predictions, Predictions.list_latest_safe_predictions(page, per_page))
-     |> allow_upload(:image, accept: ~w(.jpg .jpeg .png .heic))}
+     |> allow_upload(:image, accept: @accepted)}
   end
 
   def handle_params(%{"prompt" => prompt}, _, socket) do
