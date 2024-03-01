@@ -78,3 +78,26 @@
     </div>
   </div>
 </div>
+
+<%!-- Similar stickers --%>
+<div class="mt-8 text-center">
+  <.header>Similar-ish stickers</.header>
+  <.async_result :let={similar_stickers} assign={@similar_stickers}>
+    <:loading>Loading...</:loading>
+    <:failed :let={reason}>Something went wrong</:failed>
+
+    <ul
+      :if={similar_stickers}
+      id="sticker-list"
+      role="list"
+      class="mt-4 gap-6 grid grid-cols-3 divide-y divide-gray-200"
+    >
+      <li :for={{prediction, distance} <- similar_stickers}>
+        <StickerWeb.Components.sticker id={prediction.id} prediction={prediction} />
+        <div class="mt-2">
+          <.badge text={"Search distance: #{distance |> round()}"} />
+        </div>
+      </li>
+    </ul>
+  </.async_result>
+</div>

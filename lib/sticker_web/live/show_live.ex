@@ -2,9 +2,10 @@ defmodule StickerWeb.ShowLive do
   use StickerWeb, :live_view
   alias Sticker.Predictions
 
+  @num_results 21
+
   def mount(%{"id" => id}, _session, socket) do
     prediction = Predictions.get_prediction!(id)
-    IO.puts("prediction.sticker_output: #{prediction.sticker_output}")
 
     {:ok,
      socket
@@ -12,6 +13,13 @@ defmodule StickerWeb.ShowLive do
        prediction: prediction,
        given_feedback: false,
        form: to_form(%{"prompt" => prediction.prompt})
+     )
+     |> assign_async(
+       :similar_stickers,
+       fn ->
+         {:ok,
+          %{similar_stickers: Sticker.Embeddings.search_stickers(prediction.prompt, @num_results)}}
+       end
      ), temporary_assigns: [{SEO.key(), nil}]}
   end
 
