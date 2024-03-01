@@ -40,9 +40,6 @@
   >
     <li :for={{id, {prediction, distance}} <- @streams.results}>
       <StickerWeb.Components.sticker id={id} prediction={prediction} />
-      <div class="mt-2">
-        <.badge text={"Search distance: #{distance |> round()}"} />
-      </div>
     </li>
   </ul>
 </div>

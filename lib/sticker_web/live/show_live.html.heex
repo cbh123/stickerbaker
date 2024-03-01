@@ -94,9 +94,6 @@
     >
       <li :for={{prediction, distance} <- similar_stickers}>
         <StickerWeb.Components.sticker id={prediction.id} prediction={prediction} />
-        <div class="mt-2">
-          <.badge text={"Search distance: #{distance |> round()}"} />
-        </div>
       </li>
     </ul>
   </.async_result>
