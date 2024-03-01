@@ -84,7 +84,7 @@ defmodule StickerWeb.HomeLive do
         {:ok, path}
       end)
     else
-      send(self(), {:kick_off, prediction})
+      send(self(), {:kick_off_sticker, prediction})
     end
 
     {
