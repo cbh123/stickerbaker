@@ -9,7 +9,7 @@ defmodule StickerWeb.HomeLive do
     max_pages = Predictions.number_moderated_predictions() / per_page
 
     loading_predictions =
-      Predictions.list_loading_predictions(session["local_user_id"]) |> IO.inspect(label: "hi")
+      Predictions.list_loading_predictions(session["local_user_id"])
 
     if connected?(socket) do
       Phoenix.PubSub.subscribe(Sticker.PubSub, "safe-prediction-firehose")
