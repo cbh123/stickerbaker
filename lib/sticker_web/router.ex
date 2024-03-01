@@ -40,7 +40,7 @@ defmodule StickerWeb.Router do
     live "/", HomeLive, :index
     live "/sticker/:id", ShowLive, :show
     live "/stickers", HistoryLive, :index
-    live "/experimental-search", SearchLive, :index
+    live "/search", SearchLive, :index
   end
 
   # Other scopes may use custom stacks.
