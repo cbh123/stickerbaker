@@ -1,100 +1,104 @@
-<div class="max-w-xl mx-auto">
-  <h3 class="text-center text-3xl font-bold mb-4">
-    &ldquo;<%= @prediction.prompt %>&rdquo;
-  </h3>
+<div class="grid md:grid-cols-2 gap-16">
+  <div class="max-w-xl mx-auto">
+    <h3 class="text-center text-3xl font-bold mb-4">
+      &ldquo;<%= @prediction.prompt %>&rdquo;
+    </h3>
 
-  <div class="text-center">
-    <%= if is_nil(@prediction.sticker_output) do %>
-      <div class="flex items-center justify-center relative animate-pulse rounded-xl">
-        <img
-          class="rounded-xl"
-          src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExZTRjN3Z0Y2o2YmwwNDhxaGpubnk1YXAwOGpzNGhhZ2gyem4zdXRncSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/JFTg9PBtHZz9hHRkBN/giphy.gif"
-          alt=""
-        />
-      </div>
-    <% else %>
-      <img src={@prediction.sticker_output} alt={@prediction.prompt} />
-    <% end %>
-
-    <div class="inline-flex items-center mx-auto">
-      <%!-- Thumbs up --%>
-      <button
-        :if={not @given_feedback}
-        id={"thumbs-up-#{@prediction.id}"}
-        phx-click="thumbs-up"
-        phx-value-id={@prediction.id}
-        class="rounded-full group text-center rotate-12 hover:rotate-6"
-      >
-        <img title="thumbs up!" alt="thumbs up" class="h-24" src="/images/thumbs-up.png" alt="" />
-        <span class="text-sm invisible group-hover:visible text-teal-600 font-bold">
-          thumbs up
-        </span>
-      </button>
-
-      <%!-- New sticker --%>
-      <.link
-        id="new"
-        class="rounded-full group text-center rotate-12 hover:rotate-6"
-        navigate={~p"/?prompt=#{@prediction.prompt}"}
-      >
-        <img title="new" alt="new" class="h-28" src="/images/new.png" alt="" loading="lazy" />
-        <span class="text-sm text-purple-500 font-bold invisible group-hover:visible">new</span>
-      </.link>
-
-      <%!-- Share --%>
-      <div class="text-center">
-        <button
-          id="copy"
-          data-url={"https://stickerbaker.com/sticker/#{@prediction.id}"}
-          phx-click={JS.dispatch("phx:copy", to: "#copy")}
-          class="rounded-full text-center -rotate-12 hover:-rotate-6 group"
-        >
-          <img
-            title="share"
-            alt="download"
-            class="h-28"
-            src="/images/airplane.png"
-            alt=""
-            loading="lazy"
-          />
-          <span class="text-sm text-blue-500 font-bold invisible group-hover:visible">share</span>
-        </button>
-      </div>
-
-      <%!-- Download --%>
-      <a
-        href={@prediction.sticker_output}
-        download={@prediction.prompt <> ".png"}
-        class="rounded-full group items-center text-center -rotate-12 hover:-rotate-6 group"
-      >
-        <img title="download" alt="download" class="h-24" src="/images/save.png" alt="" />
-        <span class="text-sm text-gray-800 font-bold invisible group-hover:visible">
-          save
-        </span>
-      </a>
-    </div>
     <div class="text-center">
-      <.outline_button phx-value-id={@prediction.id} phx-click="flag">⛳️ Report</.outline_button>
+      <%= if is_nil(@prediction.sticker_output) do %>
+        <div class="flex items-center justify-center relative animate-pulse rounded-xl">
+          <img
+            class="rounded-xl"
+            src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExZTRjN3Z0Y2o2YmwwNDhxaGpubnk1YXAwOGpzNGhhZ2gyem4zdXRncSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/JFTg9PBtHZz9hHRkBN/giphy.gif"
+            alt=""
+          />
+        </div>
+      <% else %>
+        <img src={@prediction.sticker_output} alt={@prediction.prompt} />
+      <% end %>
+
+      <div class="inline-flex items-center mx-auto">
+        <%!-- Thumbs up --%>
+        <button
+          :if={not @given_feedback}
+          id={"thumbs-up-#{@prediction.id}"}
+          phx-click="thumbs-up"
+          phx-value-id={@prediction.id}
+          class="rounded-full group text-center rotate-12 hover:rotate-6"
+        >
+          <img title="thumbs up!" alt="thumbs up" class="h-24" src="/images/thumbs-up.png" alt="" />
+          <span class="text-sm invisible group-hover:visible text-teal-600 font-bold">
+            thumbs up
+          </span>
+        </button>
+
+        <%!-- New sticker --%>
+        <.link
+          id="new"
+          class="rounded-full group text-center rotate-12 hover:rotate-6"
+          navigate={~p"/?prompt=#{@prediction.prompt}"}
+        >
+          <img title="new" alt="new" class="h-28" src="/images/new.png" alt="" loading="lazy" />
+          <span class="text-sm text-purple-500 font-bold invisible group-hover:visible">new</span>
+        </.link>
+
+        <%!-- Share --%>
+        <div class="text-center">
+          <button
+            id="copy"
+            data-url={"https://stickerbaker.com/sticker/#{@prediction.id}"}
+            phx-click={JS.dispatch("phx:copy", to: "#copy")}
+            class="rounded-full text-center -rotate-12 hover:-rotate-6 group"
+          >
+            <img
+              title="share"
+              alt="download"
+              class="h-28"
+              src="/images/airplane.png"
+              alt=""
+              loading="lazy"
+            />
+            <span class="text-sm text-blue-500 font-bold invisible group-hover:visible">
+              share
+            </span>
+          </button>
+        </div>
+
+        <%!-- Download --%>
+        <a
+          href={@prediction.sticker_output}
+          download={@prediction.prompt <> ".png"}
+          class="rounded-full group items-center text-center -rotate-12 hover:-rotate-6 group"
+        >
+          <img title="download" alt="download" class="h-24" src="/images/save.png" alt="" />
+          <span class="text-sm text-gray-800 font-bold invisible group-hover:visible">
+            save
+          </span>
+        </a>
+      </div>
+      <div class="text-center">
+        <.outline_button phx-value-id={@prediction.id} phx-click="flag">⛳️ Report</.outline_button>
+      </div>
     </div>
   </div>
-</div>
 
-<%!-- Similar stickers --%>
-<div class="mt-8 text-center">
-  <.header>Similar-ish stickers</.header>
-  <.async_result :let={similar_stickers} assign={@similar_stickers}>
-    <:loading>Loading...</:loading>
-    <:failed :let={reason}>Something went wrong</:failed>
+  <%!-- Similar stickers --%>
+  <div class="text-center">
+    <.header>Similar-ish stickers</.header>
+    <.async_result :let={similar_stickers} assign={@similar_stickers}>
+      <:loading>Loading...</:loading>
+      <:failed :let={reason}>Something went wrong</:failed>
 
-    <ul
-      :if={similar_stickers}
-      id="sticker-list"
-      role="list"
-      class="mt-4 gap-6 grid grid-cols-3 divide-y divide-gray-200"
-    >
-      <li :for={{prediction, distance} <- similar_stickers}>
-        <StickerWeb.Components.sticker id={prediction.id} prediction={prediction} />
-      </li>
-    </ul>
-  </.async_result>
+      <ul
+        :if={similar_stickers}
+        id="sticker-list"
+        role="list"
+        class="mt-4 gap-6 grid grid-cols-3 divide-y divide-gray-200"
+      >
+        <li :for={{prediction, distance} <- similar_stickers}>
+          <StickerWeb.Components.sticker id={prediction.id} prediction={prediction} />
+        </li>
+      </ul>
+    </.async_result>
+  </div>
 </div>
