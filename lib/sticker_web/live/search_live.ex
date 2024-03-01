@@ -19,7 +19,12 @@ defmodule StickerWeb.SearchLive do
          "prediction-#{prediction.id}"
        end
      )
-     |> stream(:results, [])}
+     |> stream(:results, [])
+     |> SEO.assign(%{
+       title: "StickerSearch",
+       description: "Search for AI generated stickers",
+       image: "/images/search.png"
+     })}
   end
 
   @impl true
