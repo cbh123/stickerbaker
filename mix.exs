@@ -59,7 +59,8 @@ defmodule Sticker.MixProject do
       {:image, "~> 0.37"},
       {:req, "~> 0.4.3"},
       {:httpoison, "~> 2.0", override: true},
-      {:phoenix_seo, "~> 0.1.9"}
+      {:phoenix_seo, "~> 0.1.9"},
+      {:sentry, "~> 8.0"}
     ]
   end
 

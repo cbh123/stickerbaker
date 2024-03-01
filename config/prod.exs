@@ -28,5 +28,17 @@ config :logger, level: :info
 
 config :sticker, env: :prod
 
+# sentry
+config :sentry,
+  dsn:
+    "https://62d219ab5cb28f561e96f358b143fbab@o4505880252776448.ingest.sentry.io/4506836912439296",
+  environment_name: :prod,
+  enable_source_code_context: true,
+  root_source_code_path: File.cwd!(),
+  tags: %{
+    env: "production"
+  },
+  included_environments: [:prod]
+
 # Runtime production configuration, including reading
 # of environment variables, is done on config/runtime.exs.

@@ -1,4 +1,5 @@
 defmodule StickerWeb.Endpoint do
+  use Sentry.PlugCapture
   use Phoenix.Endpoint, otp_app: :sticker
 
   # The session will be stored in the cookie and signed,
