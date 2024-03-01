@@ -23,7 +23,8 @@ defmodule StickerWeb.HomeLive do
      |> assign(per_page: per_page)
      |> assign(max_pages: max_pages)
      |> stream(:my_predictions, loading_predictions)
-     |> stream(:latest_predictions, Predictions.list_latest_safe_predictions(page, per_page))}
+     |> stream(:latest_predictions, Predictions.list_latest_safe_predictions(page, per_page))
+     |> allow_upload(:image, accept: ~w(.jpg .jpeg .png .heic))}
   end
 
   def handle_params(%{"prompt" => prompt}, _, socket) do
@@ -65,12 +66,33 @@ defmodule StickerWeb.HomeLive do
         local_user_id: user_id
       })
 
-    send(self(), {:kick_off, prediction})
+    if Enum.any?(socket.assigns.uploads.image.entries, & &1.done?) do
+      consume_uploaded_entries(socket, :image, fn %{path: path}, entry ->
+        uri =
+          path
+          |> File.read!()
+          |> Base.encode64()
+          |> Sticker.Utils.base64_to_data_uri(entry.client_type)
 
-    {:noreply,
-     socket
-     |> assign(form: to_form(%{"prompt" => ""}))
-     |> stream_insert(:my_predictions, prediction, at: 0)}
+        {:ok, _prediction} =
+          Predictions.update_prediction(prediction, %{
+            model: "face-to-sticker"
+          })
+
+        send(self(), {:kick_off_face_to_sticker, prediction, uri})
+
+        {:ok, path}
+      end)
+    else
+      send(self(), {:kick_off, prediction})
+    end
+
+    {
+      :noreply,
+      socket
+      |> assign(form: to_form(%{"prompt" => ""}))
+      |> stream_insert(:my_predictions, prediction, at: 0)
+    }
   end
 
   def handle_info({:new_prediction, prediction}, socket) do
@@ -81,8 +103,19 @@ defmodule StickerWeb.HomeLive do
     {:noreply, socket |> stream_insert(:latest_predictions, prediction, at: 0)}
   end
 
-  def handle_info({:kick_off, prediction}, socket) do
+  def handle_info({:kick_off_sticker, prediction}, socket) do
     Predictions.moderate(prediction.prompt, prediction.local_user_id, prediction.id)
+    {:noreply, socket}
+  end
+
+  def handle_info({:kick_off_face_to_sticker, prediction, image_uri}, socket) do
+    Predictions.gen_face_to_sticker(
+      prediction.prompt,
+      image_uri,
+      prediction.local_user_id,
+      prediction.id
+    )
+
     {:noreply, socket}
   end
 
@@ -123,4 +156,7 @@ defmodule StickerWeb.HomeLive do
      |> stream_insert(:my_predictions, prediction)
      |> put_flash(:info, "Sticker generated! Click it to download.")}
   end
+
+  def error_to_string(:too_large), do: "Too large"
+  def error_to_string(:not_accepted), do: "Sorry, we only accept #{@accepted}"
 end

@@ -63,7 +63,7 @@ defmodule StickerWeb.ReplicateWebhookController do
           "output" => output,
           "id" => uuid,
           "user_id" => user_id,
-          "model" => "fofr/sticker-maker",
+          "model" => model,
           "prediction_id" => prediction_id
         }
       ) do
