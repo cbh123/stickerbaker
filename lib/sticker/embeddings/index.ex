@@ -11,8 +11,12 @@ defmodule Sticker.Embeddings.Index do
   end
 
   def init(_args) do
-    {:ok, text_index} = HNSWLib.Index.new(:l2, 1024, 10_000)
-    {:ok, image_index} = HNSWLib.Index.new(:l2, 1024, 100)
+    index_size = if Application.get_env(:sticker, :env) == :prod, do: 10_000, else: 100
+
+    {:ok, text_index} =
+      HNSWLib.Index.new(:l2, 1024, index_size)
+
+    {:ok, image_index} = HNSWLib.Index.new(:l2, 1024, index_size)
 
     Sticker.Predictions.list_predictions_with_text_embeddings()
     |> Enum.each(fn prediction ->

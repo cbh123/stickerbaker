@@ -13,7 +13,7 @@
       />
     </div>
   </.form>
-  <p :if={not is_nil(@elapsed_time)} class="mt-2 text-sm text-gray-500">
+  <p :if={not is_nil(@elapsed_time) and not @loading} class="mt-2 text-sm text-gray-500">
     Searched <%= @number_searchable_stickers %> stickers in <%= @elapsed_time / 1000.0 %> seconds
   </p>
 
