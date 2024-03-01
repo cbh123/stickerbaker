@@ -30,7 +30,7 @@ defmodule StickerWeb.SearchLive do
       ) do
     {:noreply,
      push_patch(socket,
-       to: ~p"/experimental-search?query=#{query}"
+       to: ~p"/search?query=#{query}"
      )}
   end
 
