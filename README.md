@@ -82,5 +82,6 @@ To start your Phoenix server:
 Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
 ## Prod
-
+Update the `url` and `check_origin` origin in `prod.exs` 
 Deploy with `fly launch`
+Make sure when you `fly launch` you set up a Postgres DB!
