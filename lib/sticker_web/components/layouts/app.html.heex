@@ -11,15 +11,17 @@
     </div>
 
     <div class="font-brand flex items-center gap-4">
-      <.outline_button><.link navigate={~p"/stickers"}>Oven</.link></.outline_button>
-      <.outline_button>
-        <.link navigate={~p"/search"}>
+      <.link navigate={~p"/stickers"}>
+        <.outline_button>Oven</.outline_button>
+      </.link>
+      <.link navigate={~p"/search"}>
+        <.outline_button>
           Search
           <span class="inline-flex items-center rounded-full bg-orange-100 px-2 py-1 text-xs font-medium text-orange-700">
             NEW
           </span>
-        </.link>
-      </.outline_button>
+        </.outline_button>
+      </.link>
     </div>
   </div>
 </header>
