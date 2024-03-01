@@ -1,7 +1,7 @@
 defmodule StickerWeb.SearchLive do
   use StickerWeb, :live_view
 
-  @num_results 31
+  @num_results 300
 
   @impl true
   def mount(_params, _session, socket) do
