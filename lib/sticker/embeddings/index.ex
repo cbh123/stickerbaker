@@ -11,7 +11,7 @@ defmodule Sticker.Embeddings.Index do
   end
 
   def init(_args) do
-    {:ok, text_index} = HNSWLib.Index.new(:l2, 1024, 100)
+    {:ok, text_index} = HNSWLib.Index.new(:l2, 1024, 10_000)
     {:ok, image_index} = HNSWLib.Index.new(:l2, 1024, 100)
 
     Sticker.Predictions.list_predictions_with_text_embeddings()
