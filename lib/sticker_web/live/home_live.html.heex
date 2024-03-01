@@ -23,8 +23,8 @@
       <.input
         field={@form[:prompt]}
         type="text"
-        required
         placeholder="What is your sticker?"
+        required
         phx-mounted={JS.focus()}
         class="px-3 py-2"
       />
@@ -47,6 +47,80 @@
     <span class="text-xs text-gray-500">
       Try something simple like ‘cat’ or ‘high five’. You can make multiple stickers at once!
     </span>
+
+    <div class="mt-6 relative">
+      <.link class="font-bold">
+        <span class="inline-flex items-center rounded-full bg-orange-100 px-2 py-1 text-xs font-medium text-orange-700">
+          NEW
+        </span>
+        Turn a face into a sticker!
+      </.link>
+
+      <div class="mt-4">
+        <section
+          class={"#{if @uploads.image.entries == [], do: "border-2", else: ""} border-orange-300 w-full border-dashed rounded-lg flex py-4 flex-col justify-center items-center text-center"}
+          phx-drop-target={@uploads.image.ref}
+        >
+          <form id="upload-form" phx-submit="save" phx-change="validate" class="">
+            <div>
+              <label
+                :if={@uploads.image.entries == []}
+                for={@uploads.image.ref}
+                class="relative cursor-pointer rounded-md bg-white font-medium focus-within:outline-none focus-within:ring-2 focus-within:ring-green-500 focus-within:ring-offset-2 hover:text-brand text-xs"
+              >
+                <.header class="">Upload</.header>
+                <div class="flex items-center justify-around gap-6 pt-4">
+                  <img
+                    src="/images/arnold_before.png"
+                    alt="arnold_before"
+                    class="h-12 rounded-md"
+                  /> ➡️
+                  <img src="/images/arnold.png" alt="arnold_before" class="h-12 rounded-md" />
+                </div>
+                <input id="file-upload" name="file-upload" type="file" class="sr-only" />
+              </label>
+              <.live_file_input upload={@uploads.image} class="hidden" />
+            </div>
+          </form>
+          <%!-- render each image entry --%>
+          <%= for entry <- @uploads.image.entries do %>
+            <article class="h-full">
+              <figure>
+                <.live_img_preview entry={entry} class="shadow mx-auto h-24 rounded-md" />
+              </figure>
+
+              <%!-- Phoenix.Component.upload_errors/2 returns a list of error atoms --%>
+              <%= for err <- upload_errors(@uploads.image, entry) do %>
+                <p class="text-red-500"><%= error_to_string(err) %></p>
+              <% end %>
+
+              <%= if upload_errors(@uploads.image, entry) != [] do %>
+                <.link navigate={~p"/"}>
+                  <.button>
+                    Try another upload
+                  </.button>
+                </.link>
+              <% end %>
+            </article>
+          <% end %>
+
+          <%!-- Phoenix.Component.upload_errors/1 returns a list of error atoms --%>
+          <%= for err <- upload_errors(@uploads.image) do %>
+            <p class="alert alert-danger"><%= error_to_string(err) %></p>
+          <% end %>
+        </section>
+        <p class="text-xs text-gray-500 mt-4">
+          Powered by
+          <a
+            href="https://replicate.com/fofr/face-to-sticker?utm_source=project&utm_campaign=stickerbaker"
+            class="underline"
+          >
+            fofr/face-to-sticker
+          </a>
+          on Replicate. All face uploads are deleted after processing.
+        </p>
+      </div>
+    </div>
   </.form>
 
   <div :if={not is_nil(@local_user_id)}>

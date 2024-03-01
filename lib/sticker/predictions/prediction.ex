@@ -22,6 +22,7 @@ defmodule Sticker.Predictions.Prediction do
       values: [:starting, :processing, :succeeded, :failed, :canceled, :moderation_succeeded]
 
     field :autoplay_time, :utc_datetime
+    field :model, :string
 
     timestamps()
   end
@@ -44,7 +45,8 @@ defmodule Sticker.Predictions.Prediction do
       :image_embedding,
       :embedding_model,
       :status,
-      :autoplay_time
+      :autoplay_time,
+      :model
     ])
     |> validate_required([:prompt])
   end

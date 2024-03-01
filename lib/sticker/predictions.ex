@@ -48,6 +48,29 @@ defmodule Sticker.Predictions do
     )
   end
 
+  def gen_face_to_sticker(prompt, image_uri, user_id, prediction_id) do
+    "fofr/face-to-sticker"
+    |> Replicate.Models.get!()
+    |> Replicate.Models.get_latest_version!()
+    |> Replicate.Predictions.create(
+      %{
+        image: image_uri,
+        steps: 20,
+        width: 768,
+        height: 768,
+        prompt: prompt,
+        upscale: false,
+        upscale_steps: 10,
+        negative_prompt: "racist, xenophobic, antisemitic, islamophobic, bigoted",
+        prompt_strength: 4.5,
+        ip_adapter_noise: 0.5,
+        ip_adapter_weight: 0.2,
+        instant_id_strength: 0.7
+      },
+      "#{Sticker.Utils.get_host()}/webhooks/replicate?user_id=#{user_id}&prediction_id=#{prediction_id}"
+    )
+  end
+
   def list_loading_predictions(nil), do: []
 
   def list_loading_predictions(user_id) do

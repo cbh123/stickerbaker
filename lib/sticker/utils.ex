@@ -34,4 +34,8 @@ defmodule Sticker.Utils do
         "https://#{host}"
     end
   end
+
+  def base64_to_data_uri(base64, mime_type \\ "image/png") do
+    "data:#{mime_type};base64," <> base64
+  end
 end
