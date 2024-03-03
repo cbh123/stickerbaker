@@ -111,6 +111,15 @@ defmodule StickerWeb.ReplicateWebhookController do
     conn
   end
 
+  # catch-all handle webhook
+  def handle_webhook(conn, _params) do
+    Logger.warn("uncaught webhook")
+
+    conn
+    |> put_resp_content_type("text/plain")
+    |> send_resp(200, "ok")
+  end
+
   defp broadcast(user_id, message),
     do: Phoenix.PubSub.broadcast(Sticker.PubSub, "user:#{user_id}", message)
 end
