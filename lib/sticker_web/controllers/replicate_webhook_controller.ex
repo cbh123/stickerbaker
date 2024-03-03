@@ -114,7 +114,7 @@ defmodule StickerWeb.ReplicateWebhookController do
 
   # catch-all handle webhook
   def handle_webhook(conn, _params) do
-    Logger.warn("uncaught webhook")
+    Logger.warning("uncaught webhook")
 
     conn
     |> put_resp_content_type("text/plain")
