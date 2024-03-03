@@ -1,6 +1,7 @@
 defmodule StickerWeb.ReplicateWebhookController do
   use StickerWeb, :controller
   alias Sticker.Predictions
+  require Logger
 
   @annoying_users ["lt3hjkan30umvl86oz2", "lt3ihfm35457xftgd3r", "lt3ihohmy96n9ofb5m"]
 
