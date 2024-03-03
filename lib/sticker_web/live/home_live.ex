@@ -3,7 +3,7 @@ defmodule StickerWeb.HomeLive do
   alias Phoenix.PubSub
   alias Sticker.Predictions
 
-  @accepted ~w(.jpg .jpeg .png .heic)
+  @accepted ~w(.jpg .jpeg .png)
 
   def mount(_params, session, socket) do
     page = 0
