@@ -20,8 +20,8 @@ defmodule StickerWeb.SEO do
 
   def site_config(_conn) do
     SEO.Site.build(
-      default_title: "StickerBaker",
-      description: "Bake stickers with AI",
+      default_title: "StickerBaker | Make AI stickers",
+      description: "Make AI stickers of yourself",
       theme_color: "#663399",
       windows_tile_color: "#663399",
       mask_icon_color: "#663399"
