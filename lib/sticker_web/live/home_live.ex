@@ -49,8 +49,8 @@ defmodule StickerWeb.HomeLive do
      |> stream(:latest_predictions, latest_predictions)}
   end
 
-  def handle_event("validate", %{"prompt" => _prompt}, socket) do
-    {:noreply, socket}
+  def handle_event("validate", %{"prompt" => prompt}, socket) do
+    {:noreply, socket |> assign(form: to_form(%{"prompt" => prompt}))}
   end
 
   def handle_event("assign-user-id", %{"userId" => user_id}, socket) do
