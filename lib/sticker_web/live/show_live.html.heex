@@ -17,14 +17,25 @@
         <img src={@prediction.sticker_output} alt={@prediction.prompt} />
       <% end %>
 
-      <.link
-        class=""
-        href={"https://www.stickermule.com/autoupload?url=https://fly.storage.tigris.dev/sticker-bucket/prediction-#{@prediction.id}-sticker.png&hasBleed=true&utm_source=stickerbaker&utm_medium=partner"}
-      >
-        <.outline_button class="items-center flex mx-auto shadow-lg shadow-orange-300">
-          Print on <img class="h-4 ml-1" src="/images/sticker-mule-logo.png" alt="Sticker Mule" />
-        </.outline_button>
-      </.link>
+      <div class="inline-flex">
+        <.link
+          class="mr-3"
+          href={"https://www.stickermule.com/autoupload?url=https://fly.storage.tigris.dev/sticker-bucket/prediction-#{@prediction.id}-sticker.png&hasBleed=true&utm_source=stickerbaker&utm_medium=partner"}
+        >
+          <.outline_button class="items-center flex mx-auto shadow-lg shadow-orange-300">
+            Print on
+            <img class="h-4 ml-1" src="/images/sticker-mule-logo.png" alt="Sticker Mule" />
+          </.outline_button>
+        </.link>
+        <.link
+          class=""
+          href="https://replicate.com/fofr/sticker-maker?utm_source=project&utm_campaign=stickerbaker"
+        >
+          <.outline_button class="items-center flex mx-auto shadow-lg shadow-gray-300">
+            Run on <img class="h-5 ml-1" src="/images/replicate.tiff" alt="Replicate" />
+          </.outline_button>
+        </.link>
+      </div>
 
       <div class="inline-flex items-center mx-auto">
         <%!-- Thumbs up --%>
