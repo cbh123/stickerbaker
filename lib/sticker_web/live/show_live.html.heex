@@ -5,6 +5,14 @@
     </h3>
 
     <div class="text-center">
+      <.link
+        class=""
+        href={"https://www.stickermule.com/autoupload?url=https://fly.storage.tigris.dev/sticker-bucket/prediction-#{@prediction.id}-sticker.png&hasBleed=true&utm_source=stickerbaker&utm_medium=partner"}
+      >
+        <.outline_button class="items-center flex mx-auto shadow-lg shadow-orange-300">
+          Print on <img class="h-4 ml-1" src="/images/sticker-mule-logo.png" alt="Sticker Mule" />
+        </.outline_button>
+      </.link>
       <%= if is_nil(@prediction.sticker_output) do %>
         <div class="flex items-center justify-center relative animate-pulse rounded-xl">
           <img
@@ -75,9 +83,6 @@
             save
           </span>
         </a>
-      </div>
-      <div class="text-center">
-        <.outline_button phx-value-id={@prediction.id} phx-click="flag">⛳️ Report</.outline_button>
       </div>
     </div>
   </div>
