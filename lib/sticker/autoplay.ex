@@ -68,7 +68,7 @@ defmodule Sticker.Autoplay do
 
   defp update_and_broadcast_oldest_prediction() do
     Predictions.get_oldest_safe_prediction()
-    |> IO.inspect()
+    |> IO.inspect(label: "oldest safe prediction")
     |> case do
       nil ->
         :ok

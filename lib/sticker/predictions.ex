@@ -84,7 +84,7 @@ defmodule Sticker.Predictions do
     |> Repo.all()
   end
 
-  defp safe_prediction_query() do
+  def safe_prediction_query() do
     from(p in Prediction,
       where: not is_nil(p.sticker_output) and p.is_featured == true,
       order_by: [desc: p.updated_at]
@@ -157,8 +157,11 @@ defmodule Sticker.Predictions do
   end
 
   def get_oldest_safe_prediction() do
-    safe_prediction_query()
-    |> limit(1)
+    from(p in Prediction,
+      where: not is_nil(p.sticker_output) and p.is_featured == true,
+      order_by: [asc: p.updated_at],
+      limit: 1
+    )
     |> Repo.one()
   end
 
