@@ -22,7 +22,11 @@
           class="mr-3"
           href={"https://www.stickermule.com/autoupload?url=https://fly.storage.tigris.dev/sticker-bucket/prediction-#{@prediction.id}-sticker.png&hasBleed=true&utm_source=stickerbaker&utm_medium=partner"}
         >
-          <.outline_button class="items-center flex mx-auto shadow-lg shadow-orange-300">
+          <.outline_button
+            phx-click="click-event"
+            phx-value-event="click-stickermule"
+            class="items-center flex mx-auto shadow-lg shadow-orange-300"
+          >
             Print on
             <img class="h-4 ml-1" src="/images/sticker-mule-logo.png" alt="Sticker Mule" />
           </.outline_button>
@@ -31,7 +35,11 @@
           class=""
           href="https://replicate.com/fofr/sticker-maker?utm_source=project&utm_campaign=stickerbaker"
         >
-          <.outline_button class="items-center flex mx-auto shadow-lg shadow-gray-300">
+          <.outline_button
+            phx-click="click-event"
+            phx-value-event="click-replicate"
+            class="items-center flex mx-auto shadow-lg shadow-gray-300"
+          >
             Run on
             <span class="ml-1.5">
               <svg

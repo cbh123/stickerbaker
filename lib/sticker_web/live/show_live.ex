@@ -36,6 +36,11 @@ defmodule StickerWeb.ShowLive do
     {:noreply, socket |> push_redirect(to: ~p"/?prompt=#{prompt}")}
   end
 
+  def handle_event("click-event", %{"event" => event}, socket) do
+    {:ok, _event} = Predictions.log_event(event)
+    {:noreply, socket}
+  end
+
   def handle_event("flag", %{"id" => id}, socket) do
     prediction = Predictions.get_prediction!(id)
 

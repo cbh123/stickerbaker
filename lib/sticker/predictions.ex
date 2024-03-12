@@ -7,6 +7,7 @@ defmodule Sticker.Predictions do
   alias Sticker.Repo
 
   alias Sticker.Predictions.Prediction
+  alias Sticker.Predictions.Event
 
   @doc """
   Moderates a prediction.
@@ -84,7 +85,12 @@ defmodule Sticker.Predictions do
     |> Repo.all()
   end
 
-  def safe_prediction_query() do
+  def log_event(event_name) do
+    %Event{event_name: event_name}
+    |> Repo.insert()
+  end
+
+  defp safe_prediction_query() do
     from(p in Prediction,
       where: not is_nil(p.sticker_output) and p.is_featured == true,
       order_by: [desc: p.updated_at]
