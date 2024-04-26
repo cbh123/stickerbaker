@@ -35,9 +35,10 @@ defmodule Sticker.Predictions do
   def gen_image(prompt, user_id, prediction_id) do
     "fofr/sticker-maker"
     |> Replicate.Models.get!()
-    |> Replicate.Models.get_version!(
-      "6443cc831f51eb01333f50b757157411d7cadb6215144cc721e3688b70004ad0"
-    )
+    |> Replicate.Models.get_latest_version!()
+    # |> Replicate.Models.get_version!(
+    #   "6443cc831f51eb01333f50b757157411d7cadb6215144cc721e3688b70004ad0"
+    # )
     |> Replicate.Predictions.create(
       %{
         prompt: prompt,
