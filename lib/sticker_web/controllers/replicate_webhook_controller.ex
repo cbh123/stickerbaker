@@ -6,6 +6,7 @@ defmodule StickerWeb.ReplicateWebhookController do
   @annoying_users ["lt3hjkan30umvl86oz2", "lt3ihfm35457xftgd3r", "lt3ihohmy96n9ofb5m"]
 
   def handle(conn, params) do
+    IO.inspect(params, label: "WEBHOOK CALLED!")
     handle_webhook(conn, params)
 
     conn
@@ -64,7 +65,7 @@ defmodule StickerWeb.ReplicateWebhookController do
           "output" => output,
           "id" => uuid,
           "user_id" => user_id,
-          "model" => model,
+          "model" => _model,
           "prediction_id" => prediction_id
         }
       ) do
