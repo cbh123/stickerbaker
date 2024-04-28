@@ -35,18 +35,16 @@ defmodule Sticker.Predictions do
   def gen_image(prompt, user_id, prediction_id) do
     "fofr/sticker-maker"
     |> Replicate.Models.get!()
-    # |> Replicate.Models.get_latest_version!()
     |> Replicate.Models.get_version!(
-      "6443cc831f51eb01333f50b757157411d7cadb6215144cc721e3688b70004ad0"
+      "4acb778eb059772225ec213948f0660867b2e03f277448f18cf1800b96a65a1a"
     )
     |> Replicate.Predictions.create(
       %{
         prompt: prompt,
-        width: 512,
-        height: 512,
-        num_inference_steps: 20,
-        negative_prompt: "racist, xenophobic, antisemitic, islamophobic, bigoted",
-        upscale: false
+        output_format: "webp",
+        steps: 17,
+        output_quality: 100,
+        negative_prompt: "racist, xenophobic, antisemitic, islamophobic, bigoted"
       },
       "#{Sticker.Utils.get_host()}/webhooks/replicate?user_id=#{user_id}&prediction_id=#{prediction_id}"
     )
