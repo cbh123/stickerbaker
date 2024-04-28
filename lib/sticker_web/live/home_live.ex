@@ -68,6 +68,8 @@ defmodule StickerWeb.HomeLive do
         local_user_id: user_id
       })
 
+    # Check if there are any uploaded images. If there are,
+    # we'll do face to sticker. Otherwise we'll kick off normal sticker prediction
     if Enum.any?(socket.assigns.uploads.image.entries, & &1.done?) do
       consume_uploaded_entries(socket, :image, fn %{path: path}, entry ->
         uri =
