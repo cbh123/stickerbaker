@@ -20,9 +20,9 @@ defmodule Sticker.Application do
       {Finch, name: Sticker.Finch},
       # Start the Endpoint (http/https)
       StickerWeb.Endpoint,
-      # Sticker.Autoplay,
-      {Sticker.Embeddings.Index, []}
-      # Sticker.Embeddings.Worker
+      Sticker.Autoplay,
+      {Sticker.Embeddings.Index, []},
+      Sticker.Embeddings.Worker
       # Start a worker by calling: Sticker.Worker.start_link(arg)
       # {Sticker.Worker, arg}
     ]
