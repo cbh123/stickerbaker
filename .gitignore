@@ -39,3 +39,4 @@ npm-debug.log
 
 .env
 basic.conf
+fly.toml
