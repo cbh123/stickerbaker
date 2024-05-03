@@ -34,7 +34,7 @@ Hooks.AssignUserId = {
   mounted() {
     let userId = localStorage.getItem("userId");
     if (!userId) {
-      userId = genId(); // replace this with your user id generation logic
+      userId = genId();
       localStorage.setItem("userId", userId);
     }
     this.pushEvent("assign-user-id", { userId: userId });

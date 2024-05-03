@@ -100,7 +100,6 @@ defmodule StickerWeb.HomeLive do
   end
 
   def handle_info({:new_prediction, prediction}, socket) do
-    IO.puts("new prediction #{inspect(prediction)}")
     {:noreply, socket |> stream_insert(:latest_predictions, prediction, at: 0)}
   end
 
