@@ -6,6 +6,9 @@
 
 Enter a prompt and generating a sticker using https://replicate.com/fofr/sticker-maker.
 
+Here's an overview of the architecture:
+![](./architecture.png)
+
 The home page is rendered in `lib/sticker_web/home_live.ex`. When the prompt form is submitted, this handle_event gets called:
 
 ```elixir
@@ -82,6 +85,7 @@ To start your Phoenix server:
 Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
 ## Prod
-Update the `url` and `check_origin` origin in `prod.exs` 
+
+Update the `url` and `check_origin` origin in `prod.exs`
 Deploy with `fly launch`
 Make sure when you `fly launch` you set up a Postgres DB!
