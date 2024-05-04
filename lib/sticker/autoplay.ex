@@ -34,7 +34,6 @@ defmodule Sticker.Autoplay do
 
   # Handles the :activate message
   def handle_cast(:activate, state) do
-    IO.puts("AUTOPLAY ON!")
     new_state = Map.put(state, :activated, true)
     schedule_work_if_activated(new_state)
     {:noreply, new_state}
@@ -62,13 +61,11 @@ defmodule Sticker.Autoplay do
 
   defp schedule_work() do
     amount_of_time = Enum.random(1000..10_000)
-    IO.inspect("Autoplaying #{amount_of_time}")
     Process.send_after(self(), :work, amount_of_time)
   end
 
   defp update_and_broadcast_oldest_prediction() do
     Predictions.get_oldest_safe_prediction()
-    |> IO.inspect(label: "oldest safe prediction")
     |> case do
       nil ->
         :ok
