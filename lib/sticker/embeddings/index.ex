@@ -11,7 +11,7 @@ defmodule Sticker.Embeddings.Index do
   end
 
   def init(_args) do
-    index_size = if Application.get_env(:sticker, :env) == :prod, do: 10_000, else: 100
+    index_size = if Application.get_env(:sticker, :env) == :prod, do: 30_000, else: 100
 
     {:ok, text_index} =
       HNSWLib.Index.new(:l2, 1024, index_size)
